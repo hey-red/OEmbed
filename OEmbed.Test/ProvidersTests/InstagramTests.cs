@@ -19,6 +19,7 @@
         [InlineData("https://instagram.com/p/1XSKgBAGz-/")]
         [InlineData("https://www.instagram.com/p/1XSKgBAGz-/")]
         [InlineData("https://www.instagr.am/p/1XSKgBAGz-/")]
+        [InlineData("https://www.instagram.com/p/1XSKgBAGz-/?utm_source=ig_web_button_share_sheet")]
         public void InstagramMatchTest(string url)
         {
             Assert.True(_oEmbedProvider.CanProcess(new Uri(url)));

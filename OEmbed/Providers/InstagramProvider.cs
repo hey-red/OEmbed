@@ -13,7 +13,7 @@
             });
 
             AddScheme(
-                matcher: @"https?://(?:www\.)?instagr(?:\.am|am\.com)/p/\S+",
+                matcher: @"https?:\/\/(?:www\.)?instagr(?:\.am|am\.com)/p\/([^/?#&]+).*",
                 apiEndpoint: "http://api.instagram.com/oembed",
                 resourceType: ResourceType.Rich);
         }
