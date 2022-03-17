@@ -12,6 +12,7 @@
     <RepositoryUrl>https://github.com/hey-red/OEmbed.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>oEmbed;</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,4 +21,8 @@
     <PackageReference Include="OEmbed" Version="1.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+  
 </Project>
