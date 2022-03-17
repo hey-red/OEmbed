@@ -54,6 +54,7 @@ using HeyRed.OEmbed.Abstractions;
 using HeyRed.OEmbed.Models;
 
 // Returns null if provider not found for given url
+// NOTE: This method can throw HttpRequestException, so wrap your request with try/catch if it needed
 Video? result = await _oEmbedConsumer.RequestAsync<Video>("https://vimeo.com/22439234");
 ```
 The result object is are similar to described [in the spec](https://oembed.com/#:~:text=2.3.4,parameters)
@@ -79,3 +80,24 @@ if (item is not null)
   else { //do something }
 }
 ```
+
+## Caching
+
+Configure cache options:
+
+```C#
+services.AddOEmbed().Configure<CacheOptions>(options =>
+{
+  options.AbsoluteExpiration = DateTimeOffset.UtcNow.AddMinutes(30); // Default is 1 hour
+});
+```
+
+By default cache is enabled and it's default implementation is just a wrapper around [MemoryCache](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.caching.memorycache)
+
+You can write your own implementation of [ICache](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Abstractions/ICache.cs) and replace default cache during app configuration:
+```C#
+services.AddOEmbed().SetCache<DistributedRedisCache>();
+```
+
+## License
+[MIT](LICENSE)
