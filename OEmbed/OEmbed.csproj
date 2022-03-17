@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <version>1.0.0</version>
+    <Authors>red</Authors>
+    <RootNamespace>HeyRed.OEmbed</RootNamespace>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>.NET oEmbed implementation.</Description>
+    <PackageTags>oEmbed;</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NeoSmart.Synchronization" Version="2.0.0" />
+    <PackageReference Include="System.Runtime.Caching" Version="6.0.0" />
+    <PackageReference Include="U8XmlParser" Version="1.5.0" />
+    <PackageReference Include="Yoh.Text.Json.NamingPolicies" Version="0.1.1" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,15 @@
+﻿<oembed>
+  <type>rich</type>
+  <version>1.0</version>
+  <title>Test</title>
+  <author_name>Test</author_name>
+  <author_url>https://test.com</author_url>
+  <provider_name>Test</provider_name>
+  <provider_url>https://test.com</provider_url>
+  <width type="integer">500</width>
+  <height type="integer">500</height>
+  <thumbnail_url>https://test/c</thumbnail_url>
+  <thumbnail_width type="integer">200</thumbnail_width>
+  <thumbnail_height type="integer">200</thumbnail_height>
+  <html>&lt;b&gt;awesome!&lt;/b&gt;</html>
+</oembed>
