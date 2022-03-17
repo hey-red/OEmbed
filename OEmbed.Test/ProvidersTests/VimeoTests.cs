@@ -21,6 +21,8 @@
         [InlineData("https://vimeo.com/groups/musicvideo/videos/306797894")]
         [InlineData("https://vimeo.com/channels/music/244199526")]
         [InlineData("https://vimeo.com/ondemand/sydneyrenaealbumrelease")]
+        [InlineData("https://vimeo.com/terjes/themountain")]
+        [InlineData("https://vimeo.com/terjes/themountain#t=5s")]
         public void VimeoMatchTest(string url)
         {
             Assert.True(_oEmbedProvider.CanProcess(new Uri(url)));
