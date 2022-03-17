@@ -22,7 +22,7 @@ services.AddOEmbed();
 
 services.AddOEmbed(options =>
 {
-  options.EnableCache = true; // true by default
+	options.EnableCache = true; // true by default
 });
 ```
 
@@ -38,9 +38,9 @@ You can add a provider during configuration:
 
 ```C#
 services.AddOEmbed()
-  .ClearProviders() // remove all default providers
-  .AddProvider<YoutubeProvider>()
-  .AddProvider<VimeoProvider>();
+	.ClearProviders() // remove all default providers
+	.AddProvider<YoutubeProvider>()
+	.AddProvider<VimeoProvider>();
 ```
 
 ## Usage
@@ -53,8 +53,8 @@ For example:
 using HeyRed.OEmbed.Abstractions;
 using HeyRed.OEmbed.Models;
 
-// Returns null if provider not found for given url
-// NOTE: This method can throw HttpRequestException, so wrap your request with try/catch if it needed
+// Returns null if provider not found for given url.
+// NOTE: This method can throw HttpRequestException, so wrap your request with try/catch if it needed.
 Video? result = await _oEmbedConsumer.RequestAsync<Video>("https://vimeo.com/22439234");
 ```
 The result object is are similar to described [in the spec](https://oembed.com/#:~:text=2.3.4,parameters)
@@ -69,15 +69,15 @@ dynamic? item = await _oEmbedConsumer.RequestAsync(url);
 
 if (item is not null)
 {
-  if (item is Video) 
-  { 
-    // work with video 
-  }
-  elseif (item is Photo) 
-  { 
-    // work with photo 
-  }
-  else { //do something }
+	if (item is Video) 
+	{ 
+		// work with video 
+	}
+	elseif (item is Photo) 
+	{ 
+		// work with photo 
+	}
+	else { //do something }
 }
 ```
 
@@ -88,7 +88,7 @@ Configure cache options:
 ```C#
 services.AddOEmbed().Configure<CacheOptions>(options =>
 {
-  options.AbsoluteExpiration = DateTimeOffset.UtcNow.AddMinutes(30); // Default is 1 hour
+	options.AbsoluteExpiration = DateTimeOffset.UtcNow.AddMinutes(30); // Default is 1 hour
 });
 ```
 
@@ -97,6 +97,33 @@ By default cache is enabled and it's default implementation is just a wrapper ar
 You can write your own implementation of [ICache](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Abstractions/ICache.cs) and replace default cache during app configuration:
 ```C#
 services.AddOEmbed().SetCache<DistributedRedisCache>();
+```
+
+## Additional providers
+
+An easy way to write your own provider is inheritance of [ProviderBase](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Providers/ProviderBase.cs) record:
+
+```C#
+public record ExampleProvider : ProviderBase
+{
+	public ExampleProvider()
+	{
+		// The Provider registry is primarily using this to select right provider at first check.
+		AddAllowedHosts(new[] { "example.com", "www.example.com" }); 
+		AddScheme(
+			// Simple regex without "^" and "$" asserts. 
+			// If this Regex is match string url, then scheme used to build request.
+			matcher: @"https?://(?:www\.)?example\.com/\S+", 
+			// API endpoint for current scheme
+			apiEndpoint: "http://example.com/oembed",
+			// The response type provided by resource.
+			resourceType: ResourceType.Rich);
+		}
+	}
+	
+	// (Optional) Primary API response format(default is JSON)
+	public override ResponseFormat ResponseType => ResponseFormat.Xml;
+}
 ```
 
 ## License
