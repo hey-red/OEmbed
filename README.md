@@ -1,6 +1,6 @@
 # OEmbed
 
-A Simple [oEmbed](https://oembed.com) consumer library for .NET
+A simple [oEmbed](https://oembed.com) consumer library for .NET
 
 ## Install
 via [NuGet](https://www.nuget.org/packages/OEmbed):
