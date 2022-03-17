@@ -10,6 +10,10 @@
     <RootNamespace>HeyRed.OEmbed</RootNamespace>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>.NET oEmbed implementation.</Description>
+    <PackageReleaseNotes>https://github.com/hey-red/OEmbed/releases</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/hey-red/OEmbed</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/hey-red/OEmbed.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <PackageTags>oEmbed;</PackageTags>
   </PropertyGroup>
 
