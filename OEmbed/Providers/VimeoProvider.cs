@@ -11,7 +11,10 @@
             });
 
             AddScheme(
-                matcher: @"https?://(?:player\.)?vimeo\.com/\S+",
+                matcher:
+                @"(?:https?):\/\/(?:www\.)?vimeo\.com\/
+                (?:channels\/(?:\w+\/)?|groups\/(?:[^\/]*\/videos)\/|ondemand(.+)|)
+                (\d+)?(?:|\/\?)(?:\?\S+)?",
                 apiEndpoint: "https://vimeo.com/api/oembed.json",
                 resourceType: ResourceType.Video);
         }
