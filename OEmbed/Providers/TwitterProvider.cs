@@ -12,7 +12,7 @@
             });
 
             AddScheme(
-                matcher: @"https?://(?:www\.|mobile\.)?twitter\.com/\S+/status(es)?/\S+",
+                matcher: @"https?://(?:www\.|mobile\.)?twitter\.com/\S+/status(es)?/(\d+)(?:\?|/)?\S*",
                 apiEndpoint: "https://publish.twitter.com/oembed",
                 resourceType: ResourceType.Rich);
         }

@@ -20,6 +20,7 @@
         [InlineData("http://www.twitter.com/panpianoatelier/status/1500450869590241286")]
         [InlineData("https://twitter.com/panpianoatelier/status/1500450869590241286")]
         [InlineData("https://mobile.twitter.com/panpianoatelier/status/1500450869590241286")]
+        [InlineData("https://twitter.com/panpianoatelier/status/1500450869590241286?s=20&t=piEth1McNILTUdD9Tf-48w")]
         public void TwitterMatchTest(string url)
         {
             Assert.True(_oEmbedProvider.CanProcess(new Uri(url)));
@@ -28,7 +29,7 @@
         [Fact]
         public async void TwitterRequestTest()
         {
-            var result = await _oEmbedConsumer.RequestAsync<Rich>("https://twitter.com/panpianoatelier/status/1500450869590241286", maxWidth: 400);
+            var result = await _oEmbedConsumer.RequestAsync<Rich>("https://twitter.com/panpianoatelier/status/1500450869590241286?s=20&t=piEth1McNILTUdD9Tf-48w", maxWidth: 400);
 
             Assert.NotNull(result);
             Assert.Equal("rich", result!.Type);
