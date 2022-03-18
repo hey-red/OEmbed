@@ -15,7 +15,7 @@ namespace HeyRed.OEmbed
             where TProvider : class, IOEmbedProvider =>
             AddProvider<TProvider>(builder, _ => { });
 
-        public static IOEmbedBuilder AddProvider<TProvider>(this IOEmbedBuilder builder, Action<ProviderOptions> providerOptions)
+        public static IOEmbedBuilder AddProvider<TProvider>(this IOEmbedBuilder builder, Action<ProviderOptions> providerOptionsAction)
             where TProvider : class, IOEmbedProvider
         {
             var providerType = typeof(TProvider);
@@ -24,7 +24,7 @@ namespace HeyRed.OEmbed
             if (providerType.GetConstructor(BindingFlags.Public | BindingFlags.Instance, new[] { typeof(ProviderOptions) }) != null)
             {
                 ProviderOptions options = new();
-                providerOptions.Invoke(options);
+                providerOptionsAction.Invoke(options);
 
                 return AddProvider(builder, _ => (TProvider)Activator.CreateInstance(providerType, options)!);
             }
