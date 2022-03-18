@@ -44,6 +44,7 @@ services.AddOEmbed()
 	.AddProvider<VimeoProvider>();
 
 // or with options
+// NOTE: Some oembed providers defines additional parameters, so use "Parameters" option if you need them.
 services.AddOEmbed()
 	.ClearProviders() // remove all default providers
 	.AddProvider<TwitterProvider>(options =>
@@ -74,7 +75,7 @@ The result object is are similar to described [in the spec](https://oembed.com/#
 Models:
 [Base](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Models/Base.cs), [Link](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Models/Link.cs), [Photo](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Models/Photo.cs), [Rich](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Models/Rich.cs), [Video](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Models/Video.cs)
 
-If you dont know which response models supported by provider, then use dynamic overload.
+If you dont know which response models supported by provider, then use dynamic overload:
 ```C#
 // Deserialize response based on provider preferences
 dynamic? item = await _oEmbedConsumer.RequestAsync(url);
@@ -85,7 +86,7 @@ if (item is not null)
 	{ 
 		// work with video 
 	}
-	elseif (item is Photo) 
+	else if (item is Photo) 
 	{ 
 		// work with photo 
 	}
@@ -118,19 +119,23 @@ An easy way to write your own provider is inheritance of [ProviderBase](https://
 ```C#
 public record ExampleProvider : ProviderBase
 {
-	public ExampleProvider(ProviderOptions? options = default) // Is optional, you can safely remove argument from constructor
+	// "ProviderOptions" is optional, you can safely remove argument from constructor
+	public ExampleProvider(ProviderOptions? options = default)
 	{
 		AddParameters(options?.Parameters);
 
 		// The Provider registry is primarily using this to select right provider at first check.
+		// NOTE: Add all the hosts that will be used in the schemes below.
 		AddAllowedHosts(new[] { "example.com", "www.example.com" });
 
 		AddScheme(
 			// Simple regex without "^" and "$" asserts. 
 			// If this Regex is match string url, then scheme used to build request.
-			matcher: new RegexMatcher(@"https?://(?:www\.)?example\.com/\S+"), 
+			matcher: new RegexMatcher(@"https?://(?:www\.)?example\.com/\S+"),
+
 			// API endpoint for current scheme
 			apiEndpoint: "http://example.com/oembed",
+
 			// The response type provided by resource.
 			resourceType: ResourceType.Rich);
 		}
