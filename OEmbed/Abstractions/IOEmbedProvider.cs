@@ -11,7 +11,7 @@ namespace HeyRed.OEmbed.Abstractions
 
         ResponseFormat ResponseType { get; }
 
-        IReadOnlyDictionary<IMatcher, ProviderScheme> Schemes { get; }
+        IReadOnlyDictionary<IUriMatcher, ProviderScheme> Schemes { get; }
 
         IEnumerable<KeyValuePair<string, string?>> Parameters { get; }
     }

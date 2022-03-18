@@ -5,7 +5,7 @@ using HeyRed.OEmbed.Abstractions;
 
 namespace HeyRed.OEmbed.Providers.Common
 {
-    public class RegexMatcher : IMatcher
+    public class RegexMatcher : IUriMatcher
     {
         private readonly Regex _matchRegex;
 

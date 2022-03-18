@@ -2,7 +2,7 @@
 
 namespace HeyRed.OEmbed.Abstractions
 {
-    public interface IMatcher
+    public interface IUriMatcher
     {
         bool IsMatch(Uri uri);
     }

@@ -9,7 +9,7 @@ namespace HeyRed.OEmbed.Providers.Common
     {
         private readonly List<string> _allowedHosts = new();
 
-        private readonly Dictionary<IMatcher, ProviderScheme> _schemes = new();
+        private readonly Dictionary<IUriMatcher, ProviderScheme> _schemes = new();
 
         private IEnumerable<KeyValuePair<string, string?>> _parameters = Array.Empty<KeyValuePair<string, string?>>();
 
@@ -23,7 +23,7 @@ namespace HeyRed.OEmbed.Providers.Common
 
         protected void AddAllowedHosts(IEnumerable<string> hosts) => _allowedHosts.AddRange(hosts);
 
-        protected void AddScheme(IMatcher matcher, string apiEndpoint, ResourceType resourceType)
+        protected void AddScheme(IUriMatcher matcher, string apiEndpoint, ResourceType resourceType)
         {
             if (matcher is null)
             {
@@ -37,7 +37,7 @@ namespace HeyRed.OEmbed.Providers.Common
 
         public virtual ResponseFormat ResponseType => ResponseFormat.Json;
 
-        public IReadOnlyDictionary<IMatcher, ProviderScheme> Schemes => _schemes;
+        public IReadOnlyDictionary<IUriMatcher, ProviderScheme> Schemes => _schemes;
 
         public IEnumerable<KeyValuePair<string, string?>> Parameters => _parameters;
     }
