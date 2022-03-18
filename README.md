@@ -101,7 +101,7 @@ services.AddOEmbed().SetCache<DistributedRedisCache>();
 
 ## Additional providers
 
-An easy way to write your own provider is inheritance of [ProviderBase](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Providers/ProviderBase.cs) record:
+An easy way to write your own provider is inheritance of [ProviderBase](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Providers/Common/ProviderBase.cs) record:
 
 ```C#
 public record ExampleProvider : ProviderBase
