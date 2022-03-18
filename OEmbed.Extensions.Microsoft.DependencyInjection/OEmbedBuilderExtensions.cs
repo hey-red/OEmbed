@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Reflection;
 
 using HeyRed.OEmbed.Abstractions;
+using HeyRed.OEmbed.Providers.Common;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -10,9 +12,30 @@ namespace HeyRed.OEmbed
     public static class OEmbedBuilderExtensions
     {
         public static IOEmbedBuilder AddProvider<TProvider>(this IOEmbedBuilder builder)
+            where TProvider : class, IOEmbedProvider =>
+            AddProvider<TProvider>(builder, _ => { });
+
+        public static IOEmbedBuilder AddProvider<TProvider>(this IOEmbedBuilder builder, Action<ProviderOptions> providerOptions)
             where TProvider : class, IOEmbedProvider
         {
-            builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IOEmbedProvider, TProvider>());
+            var providerType = typeof(TProvider);
+
+            // Find constructor with options
+            if (providerType.GetConstructor(BindingFlags.Public | BindingFlags.Instance, new[] { typeof(ProviderOptions) }) != null)
+            {
+                ProviderOptions options = new();
+                providerOptions.Invoke(options);
+
+                return AddProvider(builder, _ => (TProvider)Activator.CreateInstance(providerType, options)!);
+            }
+
+            return AddProvider(builder, _ => (TProvider)Activator.CreateInstance(providerType)!);
+        }
+
+        public static IOEmbedBuilder AddProvider<TProcessor>(this IOEmbedBuilder builder, Func<IServiceProvider, TProcessor> implementationFactory)
+            where TProcessor : class, IOEmbedProvider
+        {
+            builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IOEmbedProvider>(implementationFactory));
             return builder;
         }
 

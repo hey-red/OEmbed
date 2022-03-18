@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OEmbed.Extensions.Microsoft.DependencyInjection\OEmbed.Extensions.Microsoft.DependencyInjection.csproj" />
     <ProjectReference Include="..\OEmbed\OEmbed.csproj" />
   </ItemGroup>
 
