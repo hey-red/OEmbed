@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <RootNamespace>HeyRed.OEmbed</RootNamespace>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>OEmbed extensions for ASP.NET Core.</Description>
     <PackageReleaseNotes>https://github.com/hey-red/OEmbed/releases</PackageReleaseNotes>
