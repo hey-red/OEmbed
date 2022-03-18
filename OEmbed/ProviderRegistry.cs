@@ -12,11 +12,13 @@ namespace HeyRed.OEmbed
 
         public ProviderRegistry(IEnumerable<IOEmbedProvider> oEmbedProviders)
         {
-            _oEmbedProviders = oEmbedProviders;
+            _oEmbedProviders = oEmbedProviders.EnsureNotNull();
         }
 
         public OEmbedProviderInfo? GetProvider(Uri uri)
         {
+            uri.EnsureNotNull();
+
             IOEmbedProvider? provider = _oEmbedProviders.FirstOrDefault(pr => pr.CanProcess(uri));
             if (provider is not null)
             {

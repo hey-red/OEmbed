@@ -25,12 +25,7 @@ namespace HeyRed.OEmbed.Providers.Common
 
         protected void AddScheme(IUriMatcher matcher, string apiEndpoint, ResourceType resourceType)
         {
-            if (matcher is null)
-            {
-                throw new ArgumentNullException(nameof(matcher));
-            }
-
-            _schemes.Add(matcher, new(new Uri(apiEndpoint), resourceType));
+            _schemes.Add(matcher.EnsureNotNull(), new(new Uri(apiEndpoint), resourceType));
         }
 
         public virtual bool CanProcess(Uri uri) => _allowedHosts.Contains(uri.Host);

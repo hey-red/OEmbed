@@ -34,8 +34,8 @@ namespace HeyRed.OEmbed
             ICache? cache = null,
             OEmbedOptions? options = null)
         {
-            _httpClient = httpClient;
-            _providerRegistry = providerRegistry;
+            _httpClient = httpClient.EnsureNotNull();
+            _providerRegistry = providerRegistry.EnsureNotNull();
             _jsonSerializer = jsonSerializer ?? new DefaultJsonSerializer();
             _xmlSerializer = xmlSerializer ?? new DefaultXmlSerializer();
             _cache = cache ?? new DefaultCache();
@@ -76,15 +76,8 @@ namespace HeyRed.OEmbed
             CancellationToken cancellationToken = default)
             where T : Base
         {
-            if (apiEndpoint is null)
-            {
-                throw new ArgumentNullException(nameof(apiEndpoint));
-            }
-
-            if (request is null)
-            {
-                throw new ArgumentNullException(nameof(request));
-            }
+            apiEndpoint.EnsureNotNull();
+            request.EnsureNotNull();
 
             string requestUrl = apiEndpoint + request.ToString();
             // Append query parameters

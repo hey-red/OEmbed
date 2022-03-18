@@ -20,15 +20,8 @@ namespace HeyRed.OEmbed
             string uri,
             IEnumerable<KeyValuePair<string, string?>> queryString)
         {
-            if (uri == null)
-            {
-                throw new ArgumentNullException(nameof(uri));
-            }
-
-            if (queryString == null)
-            {
-                throw new ArgumentNullException(nameof(queryString));
-            }
+            uri.EnsureNotNull();
+            queryString.EnsureNotNull();
 
             var anchorIndex = uri.IndexOf('#');
             var uriToBeAppended = uri;

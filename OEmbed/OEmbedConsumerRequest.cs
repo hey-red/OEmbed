@@ -14,7 +14,7 @@ namespace HeyRed.OEmbed
             int? maxWidth = null,
             int? maxHeight = null)
         {
-            Url = url;
+            Url = url.EnsureNotNull();
             Type = type;
             MaxWidth = maxWidth;
             MaxHeight = maxHeight;
