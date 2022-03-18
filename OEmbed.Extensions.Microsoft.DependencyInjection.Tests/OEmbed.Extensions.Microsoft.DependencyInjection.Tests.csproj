@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
+
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OEmbed\OEmbed.csproj" />
+    <ProjectReference Include="..\OEmbed.Extensions.Microsoft.DependencyInjection\OEmbed.Extensions.Microsoft.DependencyInjection.csproj" />
   </ItemGroup>
 
 </Project>

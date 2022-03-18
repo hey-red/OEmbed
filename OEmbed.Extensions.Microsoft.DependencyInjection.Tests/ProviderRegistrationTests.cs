@@ -1,6 +1,15 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Collections.Generic;
+using System.Linq;
 
-namespace OEmbed.Test.DependencyInjectionTests
+using HeyRed.OEmbed;
+using HeyRed.OEmbed.Abstractions;
+using HeyRed.OEmbed.Providers;
+
+using Microsoft.Extensions.DependencyInjection;
+
+using Xunit;
+
+namespace OEmbed.Extensions.Microsoft.DependencyInjection.Tests
 {
     public class ProviderRegistrationTests
     {
