@@ -33,6 +33,7 @@ By default it's register all built in providers:
 * TwitterProvider
 * VimeoProvider
 * YoutubeProvider
+* RedditProvider
 
 You can add a provider during configuration:
 
@@ -41,6 +42,17 @@ services.AddOEmbed()
 	.ClearProviders() // remove all default providers
 	.AddProvider<YoutubeProvider>()
 	.AddProvider<VimeoProvider>();
+
+// or with options
+services.AddOEmbed()
+	.ClearProviders() // remove all default providers
+	.AddProvider<TwitterProvider>(options =>
+	{
+		options.Parameters = new Dictionary<string, string?>
+		{
+			["theme"] = "dark"
+		};
+	});
 ```
 
 ## Usage
@@ -106,10 +118,13 @@ An easy way to write your own provider is inheritance of [ProviderBase](https://
 ```C#
 public record ExampleProvider : ProviderBase
 {
-	public ExampleProvider()
+	public ExampleProvider(ProviderOptions? options = default) // Is optional, you can safely remove argument from constructor
 	{
+		AddParameters(options?.Parameters);
+
 		// The Provider registry is primarily using this to select right provider at first check.
-		AddAllowedHosts(new[] { "example.com", "www.example.com" }); 
+		AddAllowedHosts(new[] { "example.com", "www.example.com" });
+
 		AddScheme(
 			// Simple regex without "^" and "$" asserts. 
 			// If this Regex is match string url, then scheme used to build request.
