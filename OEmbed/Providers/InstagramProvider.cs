@@ -2,10 +2,16 @@
 
 namespace HeyRed.OEmbed.Providers
 {
+    /// <summary>
+    /// https://developers.facebook.com/docs/instagram/oembed-legacy
+    /// TODO: migrate to new endpoints.
+    /// </summary>
     public record InstagramProvider : ProviderBase
     {
-        public InstagramProvider()
+        public InstagramProvider(ProviderOptions? options = default)
         {
+            AddParameters(options?.Parameters);
+
             AddAllowedHosts(new[]
             {
                 "instagram.com",

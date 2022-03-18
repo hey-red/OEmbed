@@ -61,5 +61,23 @@
 
             Assert.IsType<Rich>(result);
         }
+
+        [Fact]
+        public async void TwitterRequestWithAdditionalParameters()
+        {
+            var provider = new TwitterProvider(new()
+            {
+                Parameters = new Dictionary<string, string?>()
+                {
+                    ["theme"] = "dark"
+                }
+            });
+
+            var consumer = TestHelpers.BuildConsumer(new[] { provider });
+            var result = await consumer.RequestAsync<Rich>("https://twitter.com/panpianoatelier/status/1500450869590241286");
+
+            Assert.NotNull(result);
+            Assert.Contains("data-theme=\"dark\"", result!.Html);
+        }
     }
 }

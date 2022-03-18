@@ -4,8 +4,11 @@ namespace HeyRed.OEmbed.Providers
 {
     public record YoutubeProvider : ProviderBase
     {
-        public YoutubeProvider()
+        public YoutubeProvider(ProviderOptions? options = default)
         {
+            // I can't find documentation about additional parameters..
+            AddParameters(options?.Parameters);
+
             AddAllowedHosts(new[]
             {
                 "m.youtube.com",

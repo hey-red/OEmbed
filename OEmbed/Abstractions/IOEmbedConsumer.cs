@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace HeyRed.OEmbed.Abstractions
         Task<T?> RequestAsync<T>(
             Uri apiEndpoint,
             IOEmbedConsumerRequest request,
+            IEnumerable<KeyValuePair<string, string?>>? parameters = default,
             CancellationToken cancellationToken = default)
             where T : Base;
 

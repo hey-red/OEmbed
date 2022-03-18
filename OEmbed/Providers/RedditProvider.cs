@@ -4,8 +4,13 @@ namespace HeyRed.OEmbed.Providers
 {
     public record RedditProvider : ProviderBase
     {
-        public RedditProvider()
+        /// <summary>
+        /// https://github.com/reddit-archive/reddit/wiki/oEmbed
+        /// </summary>
+        public RedditProvider(ProviderOptions? options = default)
         {
+            AddParameters(options?.Parameters);
+
             AddAllowedHosts(new[]
             {
                 "reddit.com",

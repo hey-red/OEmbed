@@ -29,7 +29,8 @@ namespace HeyRed.OEmbed
                 {
                     return new OEmbedProviderInfo(
                         Scheme: scheme,
-                        ResponseFormat: provider.ResponseType);
+                        ResponseFormat: provider.ResponseType,
+                        Parameters: provider.Parameters);
                 }
             }
             return null;

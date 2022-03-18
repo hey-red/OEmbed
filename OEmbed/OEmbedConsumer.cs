@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Threading;
@@ -71,6 +72,7 @@ namespace HeyRed.OEmbed
         public async Task<T?> RequestAsync<T>(
             Uri apiEndpoint,
             IOEmbedConsumerRequest request,
+            IEnumerable<KeyValuePair<string, string?>>? parameters = default,
             CancellationToken cancellationToken = default)
             where T : Base
         {
@@ -85,6 +87,11 @@ namespace HeyRed.OEmbed
             }
 
             string requestUrl = apiEndpoint + request.ToString();
+            // Append query parameters
+            if (parameters != null)
+            {
+                requestUrl = UrlHelpers.AddQueryString(requestUrl, parameters);
+            }
 
             return _options.EnableCache ?
                 await _cache.AddOrGetExistingAsync(requestUrl, async (requestUrl) => await DoRequestAsync<T>(requestUrl, cancellationToken)) :
@@ -107,7 +114,12 @@ namespace HeyRed.OEmbed
             if (providerInfo is not null)
             {
                 var consumerRequest = new OEmbedConsumerRequest(uri, providerInfo.ResponseFormat, maxWidth, maxHeight);
-                return await RequestAsync<T>(providerInfo.Scheme.Endpoint, consumerRequest, cancellationToken);
+
+                return await RequestAsync<T>(
+                    providerInfo.Scheme.Endpoint,
+                    consumerRequest,
+                    parameters: providerInfo.Parameters,
+                    cancellationToken: cancellationToken);
             }
 
             return null;
@@ -139,7 +151,7 @@ namespace HeyRed.OEmbed
         /// <param name="uri"></param>
         /// <param name="maxWidth"></param>
         /// <param name="maxHeight"></param>
-        /// <returns></returns>
+        /// <returns>returns dynamic or null if provider not found for given url.</returns>
         /// <remarks>Use this method if you don't know type of resource response.</remarks>
         public async Task<dynamic?> RequestAsync(
             Uri uri,
@@ -156,11 +168,11 @@ namespace HeyRed.OEmbed
 
                 return scheme.ResourceType switch
                 {
-                    ResourceType.Video => await RequestAsync<Video>(scheme.Endpoint, consumerRequest, cancellationToken),
-                    ResourceType.Photo => await RequestAsync<Photo>(scheme.Endpoint, consumerRequest, cancellationToken),
-                    ResourceType.Rich => await RequestAsync<Rich>(scheme.Endpoint, consumerRequest, cancellationToken),
-                    ResourceType.Link => await RequestAsync<Link>(scheme.Endpoint, consumerRequest, cancellationToken),
-                    _ => await RequestAsync<Base>(scheme.Endpoint, consumerRequest, cancellationToken),
+                    ResourceType.Video => await RequestAsync<Video>(scheme.Endpoint, consumerRequest, providerInfo.Parameters, cancellationToken),
+                    ResourceType.Photo => await RequestAsync<Photo>(scheme.Endpoint, consumerRequest, providerInfo.Parameters, cancellationToken),
+                    ResourceType.Rich => await RequestAsync<Rich>(scheme.Endpoint, consumerRequest, providerInfo.Parameters, cancellationToken),
+                    ResourceType.Link => await RequestAsync<Link>(scheme.Endpoint, consumerRequest, providerInfo.Parameters, cancellationToken),
+                    _ => await RequestAsync<Base>(scheme.Endpoint, consumerRequest, providerInfo.Parameters, cancellationToken),
                 };
             }
 
@@ -173,7 +185,7 @@ namespace HeyRed.OEmbed
         /// <param name="url"></param>
         /// <param name="maxWidth"></param>
         /// <param name="maxHeight"></param>
-        /// <returns>>returns <see cref="Base"/> or null if provider not found for given url.</returns>
+        /// <returns>returns <see cref="Base"/> or null if provider not found for given url.</returns>
         /// <remarks>Use this method if you don't know type of resource response.</remarks>
         public async Task<dynamic?> RequestAsync(
             string url,

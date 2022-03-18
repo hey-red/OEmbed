@@ -1,6 +1,11 @@
-﻿using HeyRed.OEmbed.Providers.Common;
+﻿using System.Collections.Generic;
+
+using HeyRed.OEmbed.Providers.Common;
 
 namespace HeyRed.OEmbed
 {
-    public record OEmbedProviderInfo(ProviderScheme Scheme, ResponseFormat ResponseFormat);
+    public record OEmbedProviderInfo(
+        ProviderScheme Scheme,
+        ResponseFormat ResponseFormat,
+        IEnumerable<KeyValuePair<string, string?>> Parameters);
 }

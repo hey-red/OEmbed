@@ -4,8 +4,14 @@ namespace HeyRed.OEmbed.Providers
 {
     public record TwitterProvider : ProviderBase
     {
-        public TwitterProvider()
+        /// <summary>
+        /// https://developer.twitter.com/en/docs/twitter-for-websites/oembed-api#Embedded
+        /// </summary>
+        /// <param name="parameters"></param>
+        public TwitterProvider(ProviderOptions? options = default)
         {
+            AddParameters(options?.Parameters);
+
             AddAllowedHosts(new[]
             {
                 "twitter.com",

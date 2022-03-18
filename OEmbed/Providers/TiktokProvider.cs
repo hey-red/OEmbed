@@ -4,6 +4,9 @@ namespace HeyRed.OEmbed.Providers
 {
     public record TiktokProvider : ProviderBase
     {
+        /// <summary>
+        /// https://developers.tiktok.com/doc/embed-videos
+        /// </summary>
         public TiktokProvider()
         {
             AddAllowedHosts(new[]
