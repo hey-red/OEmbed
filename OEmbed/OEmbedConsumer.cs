@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using HeyRed.OEmbed.Abstractions;
 using HeyRed.OEmbed.Defaults;
 using HeyRed.OEmbed.Models;
-using HeyRed.OEmbed.Providers;
+using HeyRed.OEmbed.Providers.Common;
 
 namespace HeyRed.OEmbed
 {

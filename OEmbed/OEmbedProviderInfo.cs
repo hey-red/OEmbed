@@ -1,4 +1,4 @@
-﻿using HeyRed.OEmbed.Providers;
+﻿using HeyRed.OEmbed.Providers.Common;
 
 namespace HeyRed.OEmbed
 {

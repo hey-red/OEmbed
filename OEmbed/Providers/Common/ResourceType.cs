@@ -1,4 +1,4 @@
-﻿namespace HeyRed.OEmbed.Providers
+﻿namespace HeyRed.OEmbed.Providers.Common
 {
     public enum ResourceType
     {

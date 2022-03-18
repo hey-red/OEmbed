@@ -21,7 +21,7 @@ namespace HeyRed.OEmbed
             if (provider is not null)
             {
                 var scheme = provider.Schemes
-                    .Where(scheme => scheme.Key.IsMatch(uri.OriginalString))
+                    .Where(scheme => scheme.Key.IsMatch(uri))
                     .Select(scheme => scheme.Value)
                     .FirstOrDefault();
                 // Should never happens

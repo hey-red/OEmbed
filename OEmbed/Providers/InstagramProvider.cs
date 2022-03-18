@@ -1,4 +1,6 @@
-﻿namespace HeyRed.OEmbed.Providers
+﻿using HeyRed.OEmbed.Providers.Common;
+
+namespace HeyRed.OEmbed.Providers
 {
     public record InstagramProvider : ProviderBase
     {
@@ -13,7 +15,7 @@
             });
 
             AddScheme(
-                matcher: @"https?:\/\/(?:www\.)?instagr(?:\.am|am\.com)/p\/([^/?#&]+).*",
+                matcher: new RegexMatcher(@"https?:\/\/(?:www\.)?instagr(?:\.am|am\.com)/p\/([^/?#&]+).*"),
                 apiEndpoint: "http://api.instagram.com/oembed",
                 resourceType: ResourceType.Rich);
         }

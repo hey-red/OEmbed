@@ -1,4 +1,6 @@
-﻿namespace HeyRed.OEmbed.Providers
+﻿using HeyRed.OEmbed.Providers.Common;
+
+namespace HeyRed.OEmbed.Providers
 {
     public record YoutubeProvider : ProviderBase
     {
@@ -14,9 +16,10 @@
             });
 
             AddScheme(
-                matcher: @"(?:https?:\/\/)?(?:m\.)?(?:www\.)?
-                           (?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))
-                           ([\w-]+)(?:(?:\?|&|\#)t=([a-z0-9]+))?(?:\S+)?",
+                matcher: new RegexMatcher(
+                    @"(?:https?:\/\/)?(?:m\.)?(?:www\.)?
+                    (?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))
+                    ([\w-]+)(?:(?:\?|&|\#)t=([a-z0-9]+))?(?:\S+)?"),
                 apiEndpoint: "https://www.youtube.com/oembed",
                 resourceType: ResourceType.Video);
         }

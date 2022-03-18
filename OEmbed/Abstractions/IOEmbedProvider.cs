@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
-using HeyRed.OEmbed.Providers;
+using HeyRed.OEmbed.Providers.Common;
 
 namespace HeyRed.OEmbed.Abstractions
 {
@@ -12,6 +11,6 @@ namespace HeyRed.OEmbed.Abstractions
 
         ResponseFormat ResponseType { get; }
 
-        IDictionary<Regex, ProviderScheme> Schemes { get; }
+        IDictionary<IMatcher, ProviderScheme> Schemes { get; }
     }
 }

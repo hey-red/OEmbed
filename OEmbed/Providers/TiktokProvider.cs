@@ -1,4 +1,6 @@
-﻿namespace HeyRed.OEmbed.Providers
+﻿using HeyRed.OEmbed.Providers.Common;
+
+namespace HeyRed.OEmbed.Providers
 {
     public record TiktokProvider : ProviderBase
     {
@@ -12,7 +14,7 @@
             });
 
             AddScheme(
-                matcher: @"https?://(?:www\.|m\.)?tiktok\.com/(?:@\S+)?(?:v|video)/(\d+)(?:html|\S*)",
+                matcher: new RegexMatcher(@"https?://(?:www\.|m\.)?tiktok\.com/(?:@\S+)?(?:v|video)/(\d+)(?:html|\S*)"),
                 apiEndpoint: "https://www.tiktok.com/oembed",
                 resourceType: ResourceType.Video);
         }

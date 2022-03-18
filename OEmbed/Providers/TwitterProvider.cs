@@ -1,4 +1,6 @@
-﻿namespace HeyRed.OEmbed.Providers
+﻿using HeyRed.OEmbed.Providers.Common;
+
+namespace HeyRed.OEmbed.Providers
 {
     public record TwitterProvider : ProviderBase
     {
@@ -12,7 +14,7 @@
             });
 
             AddScheme(
-                matcher: @"https?://(?:www\.|mobile\.)?twitter\.com/\S+/status(es)?/(\d+)(?:\?|/)?\S*",
+                matcher: new RegexMatcher(@"https?://(?:www\.|mobile\.)?twitter\.com/\S+/status(es)?/(\d+)(?:\?|/)?\S*"),
                 apiEndpoint: "https://publish.twitter.com/oembed",
                 resourceType: ResourceType.Rich);
         }
