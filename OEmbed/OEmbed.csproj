@@ -5,7 +5,7 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
     <Authors>red</Authors>
     <RootNamespace>HeyRed.OEmbed</RootNamespace>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
