@@ -113,7 +113,7 @@ public record ExampleProvider : ProviderBase
 		AddScheme(
 			// Simple regex without "^" and "$" asserts. 
 			// If this Regex is match string url, then scheme used to build request.
-			matcher: @"https?://(?:www\.)?example\.com/\S+", 
+			matcher: new RegexMatcher(@"https?://(?:www\.)?example\.com/\S+"), 
 			// API endpoint for current scheme
 			apiEndpoint: "http://example.com/oembed",
 			// The response type provided by resource.
