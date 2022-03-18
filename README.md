@@ -22,7 +22,7 @@ services.AddOEmbed();
 
 services.AddOEmbed(options =>
 {
-	options.EnableCache = true; // true by default
+    options.EnableCache = true; // true by default
 });
 ```
 
@@ -39,21 +39,21 @@ You can add a provider during configuration:
 
 ```C#
 services.AddOEmbed()
-	.ClearProviders() // remove all default providers
-	.AddProvider<YoutubeProvider>()
-	.AddProvider<VimeoProvider>();
+    .ClearProviders() // remove all default providers
+    .AddProvider<YoutubeProvider>()
+    .AddProvider<VimeoProvider>();
 
 // or with options
 // NOTE: Some oembed providers defines additional parameters, so use "Parameters" option if you need them.
 services.AddOEmbed()
-	.ClearProviders() // remove all default providers
-	.AddProvider<TwitterProvider>(options =>
-	{
-		options.Parameters = new Dictionary<string, string?>
-		{
-			["theme"] = "dark"
-		};
-	});
+    .ClearProviders() // remove all default providers
+    .AddProvider<TwitterProvider>(options =>
+    {
+        options.Parameters = new Dictionary<string, string?>
+        {
+            ["theme"] = "dark"
+        };
+    });
 ```
 
 ## Usage
@@ -82,15 +82,15 @@ dynamic? item = await _oEmbedConsumer.RequestAsync(url);
 
 if (item is not null)
 {
-	if (item is Video) 
-	{ 
-		// work with video 
-	}
-	else if (item is Photo) 
-	{ 
-		// work with photo 
-	}
-	else { //do something }
+    if (item is Video) 
+    {
+        // work with video 
+    }
+    else if (item is Photo) 
+    {
+        // work with photo
+    }
+    else { //do something }
 }
 ```
 
@@ -101,7 +101,7 @@ Configure cache options:
 ```C#
 services.AddOEmbed().Configure<CacheOptions>(options =>
 {
-	options.AbsoluteExpiration = DateTimeOffset.UtcNow.AddMinutes(30); // Default is 1 hour
+    options.AbsoluteExpiration = DateTimeOffset.UtcNow.AddMinutes(30); // Default is 1 hour
 });
 ```
 
@@ -119,30 +119,30 @@ An easy way to write your own provider is inheritance of [ProviderBase](https://
 ```C#
 public record ExampleProvider : ProviderBase
 {
-	// "ProviderOptions" is optional, you can safely remove argument from constructor
-	public ExampleProvider(ProviderOptions? options = default)
-	{
-		AddParameters(options?.Parameters);
-
-		// The Provider registry is primarily using this to select right provider at first check.
-		// NOTE: Add all the hosts that will be used in the schemes below.
-		AddAllowedHosts(new[] { "example.com", "www.example.com" });
-
-		AddScheme(
-			// Simple regex without "^" and "$" asserts. 
-			// If this Regex is match string url, then scheme used to build request.
-			matcher: new RegexMatcher(@"https?://(?:www\.)?example\.com/\S+"),
-
-			// API endpoint for current scheme
-			apiEndpoint: "http://example.com/oembed",
-
-			// The response type provided by resource.
-			resourceType: ResourceType.Rich);
-		}
-	}
-	
-	// (Optional) Primary API response format(default is JSON)
-	public override ResponseFormat ResponseType => ResponseFormat.Xml;
+    // "ProviderOptions" is optional, you can safely remove argument from constructor
+    public ExampleProvider(ProviderOptions? options = default)
+    {
+        AddParameters(options?.Parameters);
+        
+        // The Provider registry is primarily using this to select right provider at first check.
+        // NOTE: Add all the hosts that will be used in the schemes below.
+        AddAllowedHosts(new[] { "example.com", "www.example.com" });
+        
+        AddScheme(
+            // Simple regex without "^" and "$" asserts.
+            // If this Regex is match string url, then scheme used to build request.
+            matcher: new RegexMatcher(@"https?://(?:www\.)?example\.com/\S+"),
+            
+            // API endpoint for current scheme
+            apiEndpoint: "http://example.com/oembed",
+            
+            // The response type provided by resource.
+            resourceType: ResourceType.Rich);
+        }
+    }
+    
+    // (Optional) Primary API response format(default is JSON)
+    public override ResponseFormat ResponseType => ResponseFormat.Xml;
 }
 ```
 
