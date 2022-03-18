@@ -34,6 +34,7 @@ namespace HeyRed.OEmbed
             builder.AddProvider<TwitterProvider>();
             builder.AddProvider<VimeoProvider>();
             builder.AddProvider<YoutubeProvider>();
+            builder.AddProvider<RedditProvider>();
 
             return builder;
         }
