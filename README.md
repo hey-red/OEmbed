@@ -26,7 +26,7 @@ services.AddOEmbed(options =>
 });
 ```
 
-By default it's register all built in providers:
+By default it's register all providers listed below:
 
 * InstagramProvider
 * TiktokProvider
@@ -35,13 +35,14 @@ By default it's register all built in providers:
 * YoutubeProvider
 * RedditProvider
 
-You can add a provider during configuration:
+Additional providers can be added during configuration:
 
 ```C#
 services.AddOEmbed()
     .ClearProviders() // remove all default providers
     .AddProvider<YoutubeProvider>()
-    .AddProvider<VimeoProvider>();
+    .AddProvider<VimeoProvider>()
+    .Addprovider<ImgurProvider>();
 
 // or with options
 // NOTE: Some oembed providers defines additional parameters, so use "Parameters" option if you need them.
@@ -55,6 +56,14 @@ services.AddOEmbed()
         };
     });
 ```
+
+Additional providers:
+
+* ImgurProvider
+* SoundcloudProvider
+* GfycatProvider
+* GiphyProvider
+* GyazoProvider
 
 ## Usage
 
