@@ -43,6 +43,9 @@
             // List of dublicated links
             var urls = Enumerable.Repeat("https://www.youtube.com/watch?v=D1PvIWdJ8xo", 20).ToList();
 
+            // Url with ending slash
+            urls.Add("https://www.youtube.com/watch?v=D1PvIWdJ8xo/");
+
             urls.Add("https://www.instagram.com/p/1XSKgBAGz-/");
             urls.Add("https://vimeo.com/22439234");
 

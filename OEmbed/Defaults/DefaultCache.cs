@@ -28,6 +28,12 @@ namespace HeyRed.OEmbed.Defaults
 
         public async Task<T?> AddOrGetExistingAsync<T>(string url, Func<string, Task<T>> task)
         {
+            // Prevent to cache same urls
+            if (url.EndsWith('/'))
+            {
+                url = url[0..^1];
+            }
+
             var key = _cacheKey.CreateKey(url);
 
             var item = await GetAsync<T>(key);
