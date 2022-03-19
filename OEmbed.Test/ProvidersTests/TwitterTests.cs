@@ -55,14 +55,6 @@
         }
 
         [Fact]
-        public async void TwitterDynamicResponse()
-        {
-            var result = await _oEmbedConsumer.RequestAsync("https://twitter.com/panpianoatelier/status/1500450869590241286");
-
-            Assert.IsType<Rich>(result);
-        }
-
-        [Fact]
         public async void TwitterRequestWithAdditionalParameters()
         {
             var provider = new TwitterProvider(new()

@@ -53,13 +53,5 @@
             _output.WriteLine(result?.AuthorName);
             _output.WriteLine(result?.Title);
         }
-
-        [Fact]
-        public async void VimeoDynamicResponse()
-        {
-            var result = await _oEmbedConsumer.RequestAsync("https://vimeo.com/22439234");
-
-            Assert.IsType<Video>(result);
-        }
     }
 }

@@ -56,13 +56,5 @@ namespace OEmbed.Test.ProvidersTests
             _output.WriteLine(result?.AuthorName);
             _output.WriteLine(result?.Title);
         }
-
-        [Fact]
-        public async void YoutubeDynamicResponse()
-        {
-            var result = await _oEmbedConsumer.RequestAsync("https://www.youtube.com/watch?v=LKWFkELeYwc");
-
-            Assert.IsType<Video>(result);
-        }
     }
 }

@@ -50,13 +50,5 @@
             _output.WriteLine(result?.AuthorName);
             _output.WriteLine(result?.Title);
         }
-
-        [Fact]
-        public async void InstagramDynamicResponse()
-        {
-            var result = await _oEmbedConsumer.RequestAsync("https://www.instagram.com/p/1XSKgBAGz-/");
-
-            Assert.IsType<Rich>(result);
-        }
     }
 }

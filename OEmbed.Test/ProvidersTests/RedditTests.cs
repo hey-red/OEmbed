@@ -48,13 +48,5 @@
             _output.WriteLine(result?.AuthorName);
             _output.WriteLine(result?.Title);
         }
-
-        [Fact]
-        public async void RedditDynamicResponse()
-        {
-            var result = await _oEmbedConsumer.RequestAsync("https://www.reddit.com/r/SoulsSliders/comments/t7bsvp/someone_requested_kristen_ritter_figured_id_post/");
-
-            Assert.IsType<Rich>(result);
-        }
     }
 }

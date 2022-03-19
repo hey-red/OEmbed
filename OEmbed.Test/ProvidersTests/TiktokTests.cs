@@ -49,13 +49,5 @@
             _output.WriteLine(result?.AuthorName);
             _output.WriteLine(result?.Title);
         }
-
-        [Fact]
-        public async void TiktokDynamicResponse()
-        {
-            var result = await _oEmbedConsumer.RequestAsync("https://www.tiktok.com/@faaaariii_/video/6934593663062265094");
-
-            Assert.IsType<Video>(result);
-        }
     }
 }
