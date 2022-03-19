@@ -21,13 +21,24 @@
         [InlineData("https://thumbs.gfycat.com/RemoteIgnorantFallowdeer-mobile.mp4")]
         [InlineData("https://zippy.gfycat.com/RemoteIgnorantFallowdeer.mp4")]
         [InlineData("https://giant.gfycat.com/RemoteIgnorantFallowdeer.mp4")]
-        public void GfycatMatchTest(string url)
+        public void UrlMatchTest(string url)
         {
-            Assert.True(_oEmbedProvider.CanProcess(new Uri(url)));
+            var uri = new Uri(url);
+
+            Assert.True(_oEmbedProvider.CanProcess(uri));
+            Assert.Contains(_oEmbedProvider.Schemes, scheme => scheme.Key.IsMatch(uri));
+        }
+
+        [Theory]
+        [InlineData("https://gfycat.com/about")]
+        [InlineData("https://gfycat.com/privacy")]
+        public void UrlShouldNotMatchTest(string url)
+        {
+            Assert.DoesNotContain(_oEmbedProvider.Schemes, scheme => scheme.Key.IsMatch(new Uri(url)));
         }
 
         [Fact]
-        public async void GfycatRequestTest()
+        public async void RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Video>("https://gfycat.com/remoteignorantfallowdeer");
 
