@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -16,14 +17,18 @@ namespace HeyRed.OEmbed.Defaults
         {
             PropertyNamingPolicy = JsonNamingPolicies.SnakeLowerCase,
             NumberHandling = JsonNumberHandling.AllowReadingFromString,
-            Converters = { new Int32JsonConverter() }
+            Converters =
+            {
+                new Int32JsonConverter(),
+                new NumberToStringConverter()
+            }
         };
 
         public T? Deserialize<T>(Stream content) where T : Base => JsonSerializer.Deserialize<T>(content, serializerOptions);
     }
 
     /// <summary>
-    /// Tiktok returns width/height with percents, so I just extract numbers.
+    /// Tiktok/Soundcloud returns width/height with percents, so I just extract numbers.
     /// </summary>
     internal class Int32JsonConverter : JsonConverter<int>
     {
@@ -51,6 +56,42 @@ namespace HeyRed.OEmbed.Defaults
         public override void Write(Utf8JsonWriter writer, int value, JsonSerializerOptions options)
         {
             writer.WriteNumberValue(value);
+        }
+    }
+
+    internal class NumberToStringConverter : JsonConverter<string>
+    {
+        public override string? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            if (reader.TokenType == JsonTokenType.Number)
+            {
+                if (reader.TryGetDecimal(out var single))
+                {
+                    return single.ToString(CultureInfo.InvariantCulture);
+                }
+
+                if (reader.TryGetDouble(out var doubleNumber))
+                {
+                    return doubleNumber.ToString(CultureInfo.InvariantCulture);
+                }
+
+                if (reader.TryGetInt32(out int number))
+                {
+                    return number.ToString(CultureInfo.InvariantCulture);
+                }
+            }
+
+            if (reader.TokenType == JsonTokenType.String)
+            {
+                return reader.GetString();
+            }
+
+            return null;
+        }
+
+        public override void Write(Utf8JsonWriter writer, string value, JsonSerializerOptions options)
+        {
+            writer.WriteStringValue(value);
         }
     }
 }
