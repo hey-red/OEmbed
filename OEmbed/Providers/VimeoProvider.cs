@@ -20,7 +20,7 @@ namespace HeyRed.OEmbed.Providers
             // Regular video, channels, groups, ondemand
             AddScheme(
                 matcher: new RegexMatcher(
-                    @"(?:https?):\/\/(?:www\.)?vimeo\.com\/
+                    @"(?:https?)://(?:www\.)?vimeo\.com\/
                     (?:channels\/(?:\w+\/)|groups\/(?:[^\/]*\/videos)\/|ondemand(.+)|)
                     (\d+)?(?:|\/\?)(?:\?\S+)?"),
                 apiEndpoint: "https://vimeo.com/api/oembed.json",

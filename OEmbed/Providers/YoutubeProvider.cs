@@ -20,7 +20,7 @@ namespace HeyRed.OEmbed.Providers
 
             AddScheme(
                 matcher: new RegexMatcher(
-                    @"(?:https?:\/\/)?(?:m\.)?(?:www\.)?
+                    @"(?:https?://)?(?:m\.)?(?:www\.)?
                     (?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))
                     ([\w-]+)(?:(?:\?|&|\#)t=([a-z0-9]+))?(?:\S+)?"),
                 apiEndpoint: "https://www.youtube.com/oembed",

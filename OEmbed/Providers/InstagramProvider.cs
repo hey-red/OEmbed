@@ -21,7 +21,7 @@ namespace HeyRed.OEmbed.Providers
             });
 
             AddScheme(
-                matcher: new RegexMatcher(@"https?:\/\/(?:www\.)?instagr(?:\.am|am\.com)/p\/([^/?#&]+).*"),
+                matcher: new RegexMatcher(@"https?://(?:www\.)?instagr(?:\.am|am\.com)/p\/([^/?#&]+).*"),
                 apiEndpoint: "http://api.instagram.com/oembed",
                 resourceType: ResourceType.Rich);
         }
