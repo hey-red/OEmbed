@@ -11,18 +11,12 @@ namespace HeyRed.OEmbed.Providers.Common
 
         public RegexMatcher(string pattern)
         {
-            if (string.IsNullOrWhiteSpace(pattern))
-            {
-                throw new ArgumentNullException(nameof(pattern));
-            }
+            pattern.EnsureNotNullOrWhiteSpace();
 
             _matchRegex = new("^" + pattern + "$", RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
         }
 
-        public RegexMatcher(Regex regex)
-        {
-            _matchRegex = regex ?? throw new ArgumentNullException(nameof(regex));
-        }
+        public RegexMatcher(Regex regex) => _matchRegex = regex.EnsureNotNull();
 
         public bool IsMatch(Uri uri) => _matchRegex.IsMatch(uri.OriginalString);
     }
