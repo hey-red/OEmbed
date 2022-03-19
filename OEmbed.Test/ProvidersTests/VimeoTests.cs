@@ -23,13 +23,13 @@
         [InlineData("https://vimeo.com/ondemand/sydneyrenaealbumrelease")]
         [InlineData("https://vimeo.com/terjes/themountain")]
         [InlineData("https://vimeo.com/terjes/themountain#t=5s")]
-        public void VimeoMatchTest(string url)
+        public void UrlMatchTest(string url)
         {
-            Assert.True(_oEmbedProvider.CanProcess(new Uri(url)));
+            TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
         }
 
         [Fact]
-        public async void VimeoRequestTest()
+        public async void RequestTest()
         {
             Video? result = await _oEmbedConsumer.RequestAsync<Video>("https://vimeo.com/22439234");
 

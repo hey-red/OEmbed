@@ -21,13 +21,13 @@
         [InlineData("https://twitter.com/panpianoatelier/status/1500450869590241286")]
         [InlineData("https://mobile.twitter.com/panpianoatelier/status/1500450869590241286")]
         [InlineData("https://twitter.com/panpianoatelier/status/1500450869590241286?s=20&t=piEth1McNILTUdD9Tf-48w")]
-        public void TwitterMatchTest(string url)
+        public void UrlMatchTest(string url)
         {
-            Assert.True(_oEmbedProvider.CanProcess(new Uri(url)));
+            TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
         }
 
         [Fact]
-        public async void TwitterRequestTest()
+        public async void RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Rich>("https://twitter.com/panpianoatelier/status/1500450869590241286?s=20&t=piEth1McNILTUdD9Tf-48w", maxWidth: 400);
 
@@ -55,7 +55,7 @@
         }
 
         [Fact]
-        public async void TwitterRequestWithAdditionalParameters()
+        public async void RequestWithAdditionalParametersTest()
         {
             var provider = new TwitterProvider(new()
             {

@@ -19,13 +19,13 @@
         [InlineData("https://m.tiktok.com/v/6934593663062265094.html")]
         [InlineData("https://www.tiktok.com/@faaaariii_/video/6934593663062265094")]
         [InlineData("https://www.tiktok.com/@faaaariii_/video/6934593663062265094?is_copy_url=1&is_from_webapp=v1")]
-        public void TiktokMatchTest(string url)
+        public void UrlMatchTest(string url)
         {
-            Assert.True(_oEmbedProvider.CanProcess(new Uri(url)));
+            TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
         }
 
         [Fact]
-        public async void TiktokRequestTest()
+        public async void RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Video>("https://www.tiktok.com/@faaaariii_/video/6934593663062265094");
 

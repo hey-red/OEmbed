@@ -23,10 +23,7 @@
         [InlineData("https://giant.gfycat.com/RemoteIgnorantFallowdeer.mp4")]
         public void UrlMatchTest(string url)
         {
-            var uri = new Uri(url);
-
-            Assert.True(_oEmbedProvider.CanProcess(uri));
-            Assert.Contains(_oEmbedProvider.Schemes, scheme => scheme.Key.IsMatch(uri));
+            TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
         }
 
         [Theory]
@@ -34,7 +31,7 @@
         [InlineData("https://gfycat.com/privacy")]
         public void UrlShouldNotMatchTest(string url)
         {
-            Assert.DoesNotContain(_oEmbedProvider.Schemes, scheme => scheme.Key.IsMatch(new Uri(url)));
+            TestHelpers.UrlShouldNotMatchTest(_oEmbedProvider, url);
         }
 
         [Fact]

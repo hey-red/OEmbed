@@ -20,13 +20,13 @@
         [InlineData("https://www.instagram.com/p/1XSKgBAGz-/")]
         [InlineData("https://www.instagr.am/p/1XSKgBAGz-/")]
         [InlineData("https://www.instagram.com/p/1XSKgBAGz-/?utm_source=ig_web_button_share_sheet")]
-        public void InstagramMatchTest(string url)
+        public void UrlMatchTest(string url)
         {
-            Assert.True(_oEmbedProvider.CanProcess(new Uri(url)));
+            TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
         }
 
         [Fact]
-        public async void InstagramRequestTest()
+        public async void RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Rich>("https://www.instagram.com/p/1XSKgBAGz-/");
 

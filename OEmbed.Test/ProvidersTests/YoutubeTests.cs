@@ -26,13 +26,13 @@ namespace OEmbed.Test.ProvidersTests
         [InlineData("https://www.youtube.com/watch?v=LKWFkELeYwc&t=5")]
         [InlineData("https://www.youtube.com/watch?v=LKWFkELeYwc&t=5s")]
         [InlineData("https://www.youtube.com/watch?v=GxmJBAIoWUo&list=PL8mPWv3h4qJcOYZn8iFMLga3DjAY5nQLQ")]
-        public void YoutubeMatchTest(string url)
+        public void UrlMatchTest(string url)
         {
-            Assert.True(_oEmbedProvider.CanProcess(new Uri(url)));
+            TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
         }
 
         [Fact]
-        public async void YoutubeRequestTest()
+        public async void RequestTest()
         {
             Video? result = await _oEmbedConsumer.RequestAsync<Video>("https://www.youtube.com/watch?v=LKWFkELeYwc");
 

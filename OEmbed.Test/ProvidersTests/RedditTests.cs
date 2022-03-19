@@ -18,13 +18,13 @@
         [Theory]
         [InlineData("https://www.reddit.com/r/SoulsSliders/comments/t7bsvp/someone_requested_kristen_ritter_figured_id_post/")]
         [InlineData("https://www.reddit.com/r/SoulsSliders/comments/t7bsvp/someone_requested_kristen_ritter_figured_id_post/?utm_source=share&utm_medium=web2x&context=3")]
-        public void RedditMatchTest(string url)
+        public void UrlMatchTest(string url)
         {
-            Assert.True(_oEmbedProvider.CanProcess(new Uri(url)));
+            TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
         }
 
         [Fact]
-        public async void RedditRequestTest()
+        public async void RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Rich>("https://www.reddit.com/r/SoulsSliders/comments/t7bsvp/someone_requested_kristen_ritter_figured_id_post/");
 

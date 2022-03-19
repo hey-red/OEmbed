@@ -23,13 +23,13 @@
         [InlineData("https://giphy.com/stickers/iu-dlwlrma-uaena-PslxPYDZKuD1vNYWJy")]
         [InlineData("https://giphy.com/clips/kpop-k-pop-red-velvet-UWq9DlocbqoIal7N7I")]
         [InlineData("http://giphy.com/embed/l2YWwjl8T5tdGiaf6")]
-        public void GiphyMatchTest(string url)
+        public void UrlMatchTest(string url)
         {
-            Assert.True(_oEmbedProvider.CanProcess(new Uri(url)));
+            TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
         }
 
         [Fact]
-        public async void GiphyRequestTest()
+        public async void RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Photo>("https://giphy.com/gifs/confused-iu-looking-up-l2YWwjl8T5tdGiaf6");
 
@@ -55,7 +55,7 @@
         }
 
         [Fact]
-        public async void GiphyDynamicResponse()
+        public async void DynamicResponseTest()
         {
             var result = await _oEmbedConsumer.RequestAsync("https://giphy.com/clips/kpop-k-pop-red-velvet-UWq9DlocbqoIal7N7I");
 

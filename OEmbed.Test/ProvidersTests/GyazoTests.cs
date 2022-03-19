@@ -19,13 +19,13 @@
         [InlineData("https://gyazo.com/c86f9566d5fd2904b2929ad4b67347c7")]
         [InlineData("http://gyazo.com/c86f9566d5fd2904b2929ad4b67347c7")]
         [InlineData("https://www.gyazo.com/c86f9566d5fd2904b2929ad4b67347c7")]
-        public void GyazoMatchTest(string url)
+        public void UrlMatchTest(string url)
         {
-            Assert.True(_oEmbedProvider.CanProcess(new Uri(url)));
+            TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
         }
 
         [Fact]
-        public async void GyazoRequestTest()
+        public async void RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Photo>("https://gyazo.com/c86f9566d5fd2904b2929ad4b67347c7");
 
