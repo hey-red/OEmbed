@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 using HeyRed.OEmbed.Providers.Common;
 
@@ -12,8 +11,6 @@ namespace HeyRed.OEmbed.Providers
     /// </summary>
     public record InstagramProvider : ProviderBase
     {
-        private const string TOKEN_PARAM_KEY = "access_token";
-
         public InstagramProvider(ProviderOptions? options = default)
         {
             AddParameters(options?.Parameters);
@@ -28,17 +25,10 @@ namespace HeyRed.OEmbed.Providers
 
             // Actual endpoint https://developers.facebook.com/docs/graph-api/reference/instagram-oembed/
             if (options?.Parameters is not null &&
-                options.Parameters.Any(p => p.Key == TOKEN_PARAM_KEY))
+                options.Parameters.Any(p => p.Key == "access_token"))
             {
                 // I think validation is better than error in runtime
-                string? token = options.Parameters.First(p => p.Key == TOKEN_PARAM_KEY).Value;
-
-                if (token
-                    .EnsureNotNullOrWhiteSpace()
-                    .Split('|').Length != 2)
-                {
-                    throw new ArgumentException("The access_token should contains \"|\" separator.");
-                }
+                options.Parameters.ThrowIfInvalidMetaAccessToken();
 
                 // Posts, reels, tv
                 AddScheme(

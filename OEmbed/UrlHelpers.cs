@@ -5,7 +5,7 @@ using System.Text.Encodings.Web;
 
 namespace HeyRed.OEmbed
 {
-    public static class UrlHelpers
+    internal static class UrlHelpers
     {
         /// <summary>
         /// Append the given query keys and values to the URI.
