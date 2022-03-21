@@ -54,16 +54,27 @@ services.AddOEmbed()
         {
             ["theme"] = "dark"
         };
+    })
+    .AddProvider<FacebookProvider>(options =>
+    {
+        options.Parameters = new Dictionary<string, string?>
+        {
+            ["access_token"] = "app_id|token"
+        };
     });
 ```
 
 Additional providers:
 
+* FacebookProvider
+* CoubProvider
 * ImgurProvider
 * SoundcloudProvider
 * GfycatProvider
 * GiphyProvider
 * GyazoProvider
+
+NOTE: While Instagram can work without access_token(with limited legacy endpoint), Facebook is just throw exception if you didn't provide these token.
 
 ## Usage
 
