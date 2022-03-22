@@ -83,9 +83,8 @@ namespace HeyRed.OEmbed
         /// </summary>
         /// <param name="apiEndpoint">The URL of the service.</param>
         /// <param name="request">The Request sent to the API endpoint.</param>
-        /// <returns>returns <see cref="Base"/></returns>
-        /// <exception cref="HttpRequestException"></exception>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <param name="parameters">Additional query parameters.</param>
+        /// <returns>returns <see cref="Base"/> or null</returns>
         public async Task<T?> RequestAsync<T>(
             Uri apiEndpoint,
             IOEmbedConsumerRequest request,
