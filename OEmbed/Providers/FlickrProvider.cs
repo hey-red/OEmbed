@@ -16,7 +16,7 @@ namespace HeyRed.OEmbed.Providers
             // Photos
             AddScheme(
                 matcher: new RegexMatcher(
-                    @"https?://(?:www\.)?flickr\.com/photos/(?:[^/]+)/([0-9]+)(?:/in/[^/\s]+)?/?",
+                    @"https?://(?:www\.)?flickr\.com/photos/(?:[@a-zA-Z0-9_\.\-]+)/([0-9]+)(?:/in/[^/\s]+)?/?/?",
                     @"https?://flic\.kr/p/([a-zA-Z0-9]+)"),
                 apiEndpoint: "https://www.flickr.com/services/oembed",
                 resourceType: ResourceType.Photo);
@@ -25,7 +25,7 @@ namespace HeyRed.OEmbed.Providers
             // NOTE: Short url for albums is not work with oembed endpoint
             AddScheme(
                 matcher: new RegexMatcher(
-                    @"https?://(?:www\.)?flickr\.com/photos/([^/]+)(?:/(?:favorites|(?:albums|sets)/([0-9]+)))?/?"),
+                    @"https?://(?:www\.)?flickr\.com/photos/([@a-zA-Z0-9_\.\-]+)(?:/(?:favorites|(?:albums|sets)/([0-9]+)))?/?"),
                 apiEndpoint: "https://www.flickr.com/services/oembed",
                 resourceType: ResourceType.Rich);
         }
