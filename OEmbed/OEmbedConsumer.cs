@@ -71,6 +71,7 @@ namespace HeyRed.OEmbed
 
             using Stream responseStream = await response.Content.ReadAsStreamAsync(cancellationToken);
 
+            // Instead of throwing an exception, we select serializer based on resource response content type.
             return
                 response.Content.Headers.ContentType?.MediaType == "text/xml" ?
                     _xmlSerializer.Deserialize<T>(responseStream) :
@@ -102,10 +103,22 @@ namespace HeyRed.OEmbed
                 requestUrl = UrlHelpers.AddQueryString(requestUrl, parameters);
             }
 
-            // FIXME: Request with cache is wrapped with try/catch, while other is not.
-            return _options.EnableCache ?
-                await _cache.AddOrGetExistingAsync(requestUrl, async (requestUrl) => await DoRequestAsync<T>(requestUrl, cancellationToken)) :
-                await DoRequestAsync<T>(requestUrl, cancellationToken);
+            if (_options.EnableCache)
+            {
+                // Cache handles request failures by yourself
+                return
+                    await _cache.AddOrGetExistingAsync(requestUrl, async requestUrl =>
+                    await DoRequestAsync<T>(requestUrl, cancellationToken));
+            }
+
+            try
+            {
+                return await DoRequestAsync<T>(requestUrl, cancellationToken);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>

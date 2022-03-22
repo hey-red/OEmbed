@@ -6,14 +6,14 @@ namespace OEmbed.Test
     {
         private static readonly HttpClient HttpClient = new();
 
-        public static OEmbedConsumer BuildConsumer(IList<IOEmbedProvider> providers)
+        public static OEmbedConsumer BuildConsumer(IList<IOEmbedProvider> providers, bool withCache = false)
         {
             var providerRegistry = new ProviderRegistry(providers);
 
             return new OEmbedConsumer(
                 httpClient: HttpClient,
                 providerRegistry: providerRegistry,
-                options: new OEmbedOptions { EnableCache = false });
+                options: new OEmbedOptions { EnableCache = withCache });
         }
 
         public static void UrlShouldMatchTest(IOEmbedProvider provider, string url) => UrlMatchTest(provider, url, true);
