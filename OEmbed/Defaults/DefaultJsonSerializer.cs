@@ -47,7 +47,9 @@ namespace HeyRed.OEmbed.Defaults
             }
             else if (reader.TokenType == JsonTokenType.Number)
             {
-                return reader.GetInt32();
+                if (reader.TryGetInt32(out var intValue)) return intValue;
+                if (reader.TryGetDouble(out var doubleValue)) return (int)doubleValue;
+                if (reader.TryGetDecimal(out var decimalValue)) return (int)decimalValue;
             }
 
             return 0;
