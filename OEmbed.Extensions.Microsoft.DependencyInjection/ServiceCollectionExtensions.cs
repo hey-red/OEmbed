@@ -48,7 +48,10 @@ namespace HeyRed.OEmbed
 
             builder.Services.AddSingleton<IProviderRegistry, ProviderRegistry>();
 
-            builder.Services.AddHttpClient<IOEmbedConsumer, OEmbedConsumer>();
+            builder.Services.AddHttpClient<IOEmbedConsumer, OEmbedConsumer>(httpClient =>
+            {
+                httpClient.Timeout = TimeSpan.FromSeconds(10);
+            });
 
             builder.SetCache<DefaultCache>();
             builder.SetCacheKey<DefaultCacheKey>();
