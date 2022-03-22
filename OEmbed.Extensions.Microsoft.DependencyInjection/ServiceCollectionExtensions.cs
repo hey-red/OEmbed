@@ -48,13 +48,7 @@ namespace HeyRed.OEmbed
 
             builder.Services.AddSingleton<IProviderRegistry, ProviderRegistry>();
 
-            builder.Services.AddHttpClient<IOEmbedConsumer, OEmbedConsumer>(httpClient =>
-            {
-                var type = typeof(OEmbedConsumer);
-                var assemblyName = type.Assembly.GetName();
-                var libName = type.Namespace + "/" + assemblyName!.Version!.Major + "." + assemblyName!.Version!.Minor;
-                httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(libName);
-            });
+            builder.Services.AddHttpClient<IOEmbedConsumer, OEmbedConsumer>();
 
             builder.SetCache<DefaultCache>();
             builder.SetCacheKey<DefaultCacheKey>();

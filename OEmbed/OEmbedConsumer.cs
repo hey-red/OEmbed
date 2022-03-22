@@ -40,6 +40,11 @@ namespace HeyRed.OEmbed
             _xmlSerializer = xmlSerializer ?? new DefaultXmlSerializer();
             _cache = cache ?? new DefaultCache();
             _options = options ?? new();
+
+            var type = typeof(OEmbedConsumer);
+            var assemblyName = type.Assembly.GetName();
+            var libName = type.Namespace + "/" + assemblyName!.Version!.Major + "." + assemblyName!.Version!.Minor;
+            _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(libName);
         }
 
         /// <summary>
