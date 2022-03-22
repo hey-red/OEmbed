@@ -146,9 +146,9 @@ namespace HeyRed.OEmbed
             CancellationToken cancellationToken = default)
             where T : Base
         {
-            if (Uri.TryCreate(url, uriKind: UriKind.Absolute, out var result))
+            if (Uri.TryCreate(url, uriKind: UriKind.Absolute, out var uri) && uri.IsWellFormedOriginalString())
             {
-                return await RequestAsync<T>(result, maxWidth, maxHeight, cancellationToken);
+                return await RequestAsync<T>(uri, maxWidth, maxHeight, cancellationToken);
             }
 
             return null;
@@ -202,7 +202,7 @@ namespace HeyRed.OEmbed
             int? maxHeight = null,
             CancellationToken cancellationToken = default)
         {
-            if (Uri.TryCreate(url, uriKind: UriKind.Absolute, out var uri))
+            if (Uri.TryCreate(url, uriKind: UriKind.Absolute, out var uri) && uri.IsWellFormedOriginalString())
             {
                 return await RequestAsync(uri, maxWidth, maxHeight, cancellationToken);
             }
