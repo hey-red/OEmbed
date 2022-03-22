@@ -23,13 +23,13 @@ namespace HeyRed.OEmbed.Providers
                      * https://www.deviantart.com/{author_name}/art/{id}
                      * https://www.deviantart.com/art/{id}
                      */
-                    @"https?://(?:www\.)?deviantart\.com/(?:[a-z0-9-_]+/)?art/([\S]+)/?",
+                    @"/(?:[a-z0-9-_]+/)?art/([\S]+)/?",
 
                     /*
                      * https://fav.me/{id}
                      * https://sta.sh/{id}
                      */
-                    @"https?://(?:www\.)?(?:sta\.sh|fav\.me)/([\S]+)/?"),
+                    @"/([a-zA-Z0-9]+)/?"),
                 apiEndpoint: "https://backend.deviantart.com/oembed",
                 resourceType: ResourceType.Photo);
         }

@@ -22,7 +22,7 @@ namespace OEmbed.Test
 
         private static void UrlMatchTest(IOEmbedProvider provider, string url, bool shouldMatch)
         {
-            var uri = new Uri(url);
+            var uri = new Uri(url, uriKind: UriKind.Absolute);
 
             if (shouldMatch)
             {
@@ -31,7 +31,11 @@ namespace OEmbed.Test
             }
             else
             {
-                Assert.DoesNotContain(provider.Schemes, scheme => scheme.Key.IsMatch(uri));
+                bool canProcess = provider.CanProcess(uri);
+                if (canProcess)
+                {
+                    Assert.DoesNotContain(provider.Schemes, scheme => scheme.Key.IsMatch(uri));
+                }
             }
         }
 

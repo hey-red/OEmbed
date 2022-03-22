@@ -17,7 +17,7 @@ namespace HeyRed.OEmbed.Providers
             });
 
             AddScheme(
-                matcher: new RegexMatcher(@"https?://(?:www\.|m\.)?tiktok\.com/(?:@\S+)?(?:v|video)/(\d+)(?:html|\S*)"),
+                matcher: new RegexMatcher(@"/(?:@\S+)?(?:v|video)/(\d+)(?:html|\S*)"),
                 apiEndpoint: "https://www.tiktok.com/oembed",
                 resourceType: ResourceType.Video);
         }

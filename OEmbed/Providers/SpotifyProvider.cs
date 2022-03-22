@@ -10,13 +10,12 @@ namespace HeyRed.OEmbed.Providers
 
             AddScheme(
                 matcher: new RegexMatcher(
-                    @"https?://open\.spotify\.com/
-                    (?:artist|track|album|playlist|show|episode)/
+                    @"/(?:artist|track|album|playlist|show|episode)/
                     ([a-zA-Z0-9]+)/?
                     (?:[^/^\s]*)?",
 
                     // https://open.spotify.com/user/{user_name}/playlist/{id}
-                    @"https?://open\.spotify\.com/user/
+                    @"/user/
                     (?:[a-zA-Z0-9]+)
                     /playlist/
                     ([a-zA-Z0-9]+)/?

@@ -12,7 +12,7 @@ namespace HeyRed.OEmbed.Providers
             AddAllowedHosts(new[] { "gyazo.com", "www.gyazo.com" });
 
             AddScheme(
-                matcher: new RegexMatcher(@"https?://(?:www\.)?gyazo\.com/(\S{32,40})"),
+                matcher: new RegexMatcher(@"/(\S{32,40})"),
                 apiEndpoint: "https://api.gyazo.com/api/oembed",
                 resourceType: ResourceType.Photo);
         }

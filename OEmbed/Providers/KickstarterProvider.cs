@@ -9,7 +9,7 @@ namespace HeyRed.OEmbed.Providers
             AddAllowedHosts(new[] { "www.kickstarter.com", "kickstarter.com" });
 
             AddScheme(
-                matcher: new RegexMatcher(@"https?://(?:www\.)?kickstarter\.com/projects/(?:[a-z0-9-]+)/([a-z0-9-]+)(?:\?[^/^\s]*)?"),
+                matcher: new RegexMatcher(@"/projects/(?:[a-z0-9-]+)/([a-z0-9-]+)(?:\?[^/^\s]*)?"),
                 apiEndpoint: "https://www.kickstarter.com/services/oembed",
                 resourceType: ResourceType.Rich);
         }

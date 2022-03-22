@@ -12,7 +12,7 @@ namespace HeyRed.OEmbed.Providers
             AddAllowedHosts(new[] { "tumblr.com" });
 
             AddScheme(
-                matcher: new RegexMatcher(@"https?://(?:[a-z0-9-]+\.)tumblr\.com/post/(\d+)/?(?:\S+)?"),
+                matcher: new RegexMatcher(@"/post/(\d+)/?(?:\S+)?"),
                 apiEndpoint: "https://www.tumblr.com/oembed/1.0",
                 resourceType: ResourceType.Rich);
         }

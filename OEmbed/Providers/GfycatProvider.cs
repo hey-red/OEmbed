@@ -25,8 +25,7 @@ namespace HeyRed.OEmbed.Providers
             // Direct links like https://giant.gfycat.com/RemoteIgnorantFallowdeer.mp4
             AddScheme(
                 matcher: new RegexMatcher(@"
-                    https?://(?:giant|thumbs|zippy)\.gfycat\.com/
-                    ([a-zA-Z0-9]+)
+                    /([a-zA-Z0-9]+)
                     (?:\-mobile|\-size_restricted)?
                     \.(?:webm|mp4|gif)"),
                 apiEndpoint: "https://api.gfycat.com/v1/oembed",
@@ -36,8 +35,7 @@ namespace HeyRed.OEmbed.Providers
             // https://gfycat.com/en/remoteignorantfallowdeer-kpop
             AddScheme(
                 matcher: new RegexMatcher(@"
-                    https?://gfycat\.com/
-                    (?:detail/|ifr/)?
+                    /(?:detail/|ifr/)?
                     (?!" + string.Join("|", _invalidPaths) + ")" + // Negative Lookahead
                     "([a-zA-Z0-9-]{3,})"),
                 apiEndpoint: "https://api.gfycat.com/v1/oembed",

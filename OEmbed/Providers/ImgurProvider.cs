@@ -16,9 +16,7 @@ namespace HeyRed.OEmbed.Providers
 
             AddScheme(
                 matcher: new RegexMatcher(@"
-                    https?://(?:(?:i\.[a-z]*\.)|i\.)?
-                    imgur\.com/
-                    (?:(?:
+                    /(?:(?:
                     gallery/(\w+)|
                     t/(?:\w+)/(\w+)|
                     a/(\w+)|

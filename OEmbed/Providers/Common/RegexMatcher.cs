@@ -33,6 +33,6 @@ namespace HeyRed.OEmbed.Providers.Common
 
         public RegexMatcher(params Regex[] expressions) => _matchRegex.AddRange(expressions.EnsureNotNull());
 
-        public bool IsMatch(Uri uri) => _matchRegex.Any(re => re.IsMatch(uri.OriginalString));
+        public bool IsMatch(Uri uri) => _matchRegex.Any(re => re.IsMatch(uri.PathAndQuery));
     }
 }

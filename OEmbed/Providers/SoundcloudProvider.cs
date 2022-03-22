@@ -9,7 +9,7 @@ namespace HeyRed.OEmbed.Providers
             AddAllowedHosts(new[] { "soundcloud.com" });
 
             AddScheme(
-                matcher: new RegexMatcher(@"https?://soundcloud\.com/(?!discover|stream|upload|popular|charts|people|pages|imprint|you)([\S]+)"),
+                matcher: new RegexMatcher(@"/(?!discover|stream|upload|popular|charts|people|pages|imprint|you)([\S]+)"),
                 apiEndpoint: "https://soundcloud.com/oembed",
                 resourceType: ResourceType.Rich);
         }

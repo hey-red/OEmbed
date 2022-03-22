@@ -20,7 +20,7 @@ namespace HeyRed.OEmbed.Providers
             });
 
             AddScheme(
-                matcher: new RegexMatcher(@"https?://(?:www\.|mobile\.)?twitter\.com/\S+/status(es)?/(\d+)(?:\?|/)?\S*"),
+                matcher: new RegexMatcher(@"/\S+/status(es)?/(\d+)(?:\?|/)?\S*"),
                 apiEndpoint: "https://publish.twitter.com/oembed",
                 resourceType: ResourceType.Rich);
         }

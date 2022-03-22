@@ -33,8 +33,7 @@ namespace HeyRed.OEmbed.Providers
                 // Posts, reels, tv
                 AddScheme(
                     matcher: new RegexMatcher(@"
-                        https?://(?:www\.)?instagr(?:\.am|am\.com)/
-                        (?:[a-zA-Z0-9_\-\.]+/)?
+                        /(?:[a-zA-Z0-9_\-\.]+/)?
                         (?:p|tv|reel)/([a-zA-Z0-9_-]+)/?
                         (?:[\w?#&=]+)?"),
                     apiEndpoint: "https://graph.facebook.com/v13.0/instagram_oembed",
@@ -45,7 +44,7 @@ namespace HeyRed.OEmbed.Providers
             {
                 // NOTE: limited to post
                 AddScheme(
-                    matcher: new RegexMatcher(@"https?://(?:www\.)?instagr(?:\.am|am\.com)/p\/([^/?#&]+).*"),
+                    matcher: new RegexMatcher(@"/p\/([^/?#&]+).*"),
                     apiEndpoint: "http://api.instagram.com/oembed",
                     resourceType: ResourceType.Rich);
             }

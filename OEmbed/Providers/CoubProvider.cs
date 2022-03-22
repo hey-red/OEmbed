@@ -9,7 +9,7 @@ namespace HeyRed.OEmbed.Providers
             AddAllowedHosts(new[] { "coub.com" });
 
             AddScheme(
-                matcher: new RegexMatcher(@"https?://(?:www\.)?coub\.com/(?:view|embed)/(\w+)"),
+                matcher: new RegexMatcher(@"/(?:view|embed)/(\w+)"),
                 apiEndpoint: "https://coub.com/api/oembed.json",
                 resourceType: ResourceType.Video);
         }

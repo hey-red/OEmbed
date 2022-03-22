@@ -14,14 +14,14 @@ namespace HeyRed.OEmbed.Providers
             AddAllowedHosts(new[]
             {
                 "vimeo.com",
+                "www.vimeo.com",
                 "player.vimeo.com"
             });
 
             // Regular video, channels, groups, ondemand
             AddScheme(
                 matcher: new RegexMatcher(
-                    @"(?:https?)://(?:www\.)?vimeo\.com\/
-                    (?:channels\/(?:\w+\/)|groups\/(?:[^\/]*\/videos)\/|ondemand(.+)|)
+                    @"/(?:channels\/(?:\w+\/)|groups\/(?:[^\/]*\/videos)\/|ondemand(.+)|)
                     (\d+)?(?:|\/\?)(?:\?\S+)?"),
                 apiEndpoint: "https://vimeo.com/api/oembed.json",
                 resourceType: ResourceType.Video);
@@ -29,10 +29,7 @@ namespace HeyRed.OEmbed.Providers
             // https://vimeo.com/terjes/themountain
             // https://vimeo.com/terjes/themountain#t=5s
             AddScheme(
-                matcher: new RegexMatcher(
-                    @"(?:https?):\/\/(?:www\.)?vimeo\.com\/
-                    (?!ondemand)\w+\/(\w+)
-                    (?:(?:\?|\#)\S+)?"),
+                matcher: new RegexMatcher(@"/(?!ondemand)\w+\/(\w+)(?:(?:\?|\#)\S+)?"),
                 apiEndpoint: "https://vimeo.com/api/oembed.json",
                 resourceType: ResourceType.Video);
         }

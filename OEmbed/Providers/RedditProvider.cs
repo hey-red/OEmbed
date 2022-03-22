@@ -19,7 +19,6 @@ namespace HeyRed.OEmbed.Providers
 
             AddScheme(
                 matcher: new RegexMatcher(@"
-                    https?://(?:www\.)?(?:[\w-]+?\.)?reddit.com
                     (/r/|/user/)?(?(1)([\w:]{2,21}))(/comments/)?
                     (?(3)(\w{5,6})(?:/[\w%\\\\-]+)?)?(?(4)/(\w{7}))?/?(\?)?(?(6)(\S+))?(\#)?(?(8)(\S+))?"),
                 apiEndpoint: "https://www.reddit.com/oembed",
