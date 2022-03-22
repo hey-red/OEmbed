@@ -22,7 +22,7 @@
 
             var key = _cacheKey.CreateKey(url);
 
-            var item = await cache.AddOrGetExistingAsync(url, (url) => Task.FromResult(expected));
+            var item = await cache.AddOrGetExistingAsync(url, (url) => Task.FromResult<Base?>(expected));
 
             var cachedItem = await cache.GetAsync<Base>(key);
 
@@ -51,7 +51,7 @@
 
             await Task.WhenAll(urls.Select(async url =>
             {
-                return await cache.AddOrGetExistingAsync(url, async (url) =>
+                return await cache.AddOrGetExistingAsync<Base?>(url, async (url) =>
                 {
                     _output.WriteLine("Request #" + ++requestsCounter);
 

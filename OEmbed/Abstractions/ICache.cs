@@ -11,6 +11,6 @@ namespace HeyRed.OEmbed.Abstractions
 
         Task RemoveAsync(string key);
 
-        Task<T?> AddOrGetExistingAsync<T>(string url, Func<string, Task<T>> task);
+        Task<T?> AddOrGetExistingAsync<T>(string url, Func<string, Task<T?>> task);
     }
 }

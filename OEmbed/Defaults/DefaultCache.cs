@@ -26,7 +26,7 @@ namespace HeyRed.OEmbed.Defaults
             _options = cacheOptions ?? new();
         }
 
-        public async Task<T?> AddOrGetExistingAsync<T>(string url, Func<string, Task<T>> task)
+        public async Task<T?> AddOrGetExistingAsync<T>(string url, Func<string, Task<T?>> task)
         {
             // Prevent to cache same urls
             if (url.EndsWith('/'))
@@ -47,11 +47,15 @@ namespace HeyRed.OEmbed.Defaults
                     try
                     {
                         item = await task(url);
-                        await SetAsync(key, item);
                     }
                     catch
                     {
                         return default;
+                    }
+
+                    if (item is not null)
+                    {
+                        await SetAsync(key, item);
                     }
                 }
             }
