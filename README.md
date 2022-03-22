@@ -86,8 +86,7 @@ For example:
 using HeyRed.OEmbed.Abstractions;
 using HeyRed.OEmbed.Models;
 
-// Returns null if provider not found for given url.
-// NOTE: This method can throw HttpRequestException, so wrap your request with try/catch if it needed.
+// Returns null if provider not found or HttpRequestException was thrown.
 Video? result = await _oEmbedConsumer.RequestAsync<Video>("https://vimeo.com/22439234");
 ```
 The result object is are similar to described [in the spec](https://oembed.com/#:~:text=2.3.4,parameters)
@@ -149,9 +148,9 @@ public record ExampleProvider : ProviderBase
         AddAllowedHosts(new[] { "example.com", "www.example.com" });
         
         AddScheme(
-            // Simple regex without "^" and "$" asserts.
+            // Simple regex without hostname, "^" and "$" asserts. 
             // If this Regex is match string url, then scheme used to build request.
-            matcher: new RegexMatcher(@"https?://(?:www\.)?example\.com/\S+"),
+            matcher: new RegexMatcher(@"/\S+"),
             
             // API endpoint for current scheme
             apiEndpoint: "http://example.com/oembed",
