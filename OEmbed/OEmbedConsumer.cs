@@ -119,6 +119,8 @@ namespace HeyRed.OEmbed
             CancellationToken cancellationToken = default)
             where T : Base
         {
+            if (uri.IsFile) return null;
+
             OEmbedProviderInfo? providerInfo = _providerRegistry.GetProvider(uri);
             if (providerInfo is not null)
             {
@@ -168,6 +170,8 @@ namespace HeyRed.OEmbed
             int? maxHeight = null,
             CancellationToken cancellationToken = default)
         {
+            if (uri.IsFile) return null;
+
             OEmbedProviderInfo? providerInfo = _providerRegistry.GetProvider(uri);
             if (providerInfo is not null)
             {
