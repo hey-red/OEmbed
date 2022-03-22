@@ -102,6 +102,7 @@ namespace HeyRed.OEmbed
                 requestUrl = UrlHelpers.AddQueryString(requestUrl, parameters);
             }
 
+            // FIXME: Request with cache is wrapped with try/catch, while other is not.
             return _options.EnableCache ?
                 await _cache.AddOrGetExistingAsync(requestUrl, async (requestUrl) => await DoRequestAsync<T>(requestUrl, cancellationToken)) :
                 await DoRequestAsync<T>(requestUrl, cancellationToken);

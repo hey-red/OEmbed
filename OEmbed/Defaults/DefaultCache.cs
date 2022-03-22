@@ -4,6 +4,7 @@ using System.Runtime.Caching;
 
 using HeyRed.OEmbed.Abstractions;
 using NeoSmart.Synchronization;
+using HeyRed.OEmbed.Models;
 
 namespace HeyRed.OEmbed.Defaults
 {
@@ -27,6 +28,7 @@ namespace HeyRed.OEmbed.Defaults
         }
 
         public async Task<T?> AddOrGetExistingAsync<T>(string url, Func<string, Task<T?>> task)
+            where T : Base
         {
             // Prevent to cache same urls
             if (url.EndsWith('/'))
@@ -36,13 +38,13 @@ namespace HeyRed.OEmbed.Defaults
 
             var key = _cacheKey.CreateKey(url);
 
-            var item = await GetAsync<T>(key);
-            if (item == null)
+            object? item = _cache.Get(key);
+            if (item is null)
             {
                 using var mutex = await ScopedMutex.CreateAsync(key);
                 // Double check
-                item = await GetAsync<T>(key);
-                if (item == null)
+                item = _cache.Get(key);
+                if (item is null)
                 {
                     try
                     {
@@ -50,22 +52,37 @@ namespace HeyRed.OEmbed.Defaults
                     }
                     catch
                     {
-                        return default;
+                        // TODO: logger
                     }
 
-                    if (item is not null)
+                    if (item is T)
                     {
-                        await SetAsync(key, item);
+                        _cache.Set(key, item, _options.AbsoluteExpiration);
+                    }
+                    else
+                    {
+                        // Save empty object, because provider can return null/throw HttpRequestException
+                        // This protects us against multiple request to invalid/not found urls
+                        _cache.Set(key, _emptyValue, DateTimeOffset.UtcNow.AddMinutes(3));
                     }
                 }
             }
 
-            return (T?)item;
+            return item is T obj ? obj : null;
         }
 
-        public Task<T?> GetAsync<T>(string key) => Task.FromResult((T?)_cache.Get(key));
+        private static readonly object _emptyValue = new();
 
-        public Task SetAsync<T>(string key, T item)
+        public Task<T?> GetAsync<T>(string key) where T : Base
+        {
+            var value = _cache.Get(key);
+
+            return value is T obj ?
+                Task.FromResult<T?>(obj) :
+                Task.FromResult<T?>(null);
+        }
+
+        public Task SetAsync<T>(string key, T item) where T : Base
         {
             _cache.Set(key, item, _options.AbsoluteExpiration);
 
