@@ -26,6 +26,8 @@ namespace HeyRed.OEmbed
 
         private readonly OEmbedOptions _options;
 
+        private static readonly object _initLock = new();
+
         public OEmbedConsumer(
             HttpClient httpClient,
             IProviderRegistry providerRegistry,
@@ -41,10 +43,19 @@ namespace HeyRed.OEmbed
             _cache = cache ?? new DefaultCache();
             _options = options ?? new();
 
-            var type = typeof(OEmbedConsumer);
-            var assemblyName = type.Assembly.GetName();
-            var libName = type.Namespace + "/" + assemblyName!.Version!.Major + "." + assemblyName!.Version!.Minor;
-            _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(libName);
+            if (_httpClient.DefaultRequestHeaders.UserAgent.Count == 0)
+            {
+                lock (_initLock)
+                {
+                    if (_httpClient.DefaultRequestHeaders.UserAgent.Count == 0)
+                    {
+                        var type = typeof(OEmbedConsumer);
+                        var assemblyName = type.Assembly.GetName();
+                        var libName = type.Namespace + "/" + assemblyName!.Version!.Major + "." + assemblyName!.Version!.Minor;
+                        _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(libName);
+                    }
+                }
+            }
         }
 
         /// <summary>

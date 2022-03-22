@@ -7,7 +7,7 @@ namespace HeyRed.OEmbed.Providers.Common
 {
     public abstract record ProviderBase : IOEmbedProvider
     {
-        private readonly List<string> _allowedHosts = new();
+        protected readonly List<string> _allowedHosts = new();
 
         private readonly Dictionary<IUriMatcher, ProviderScheme> _schemes = new();
 
