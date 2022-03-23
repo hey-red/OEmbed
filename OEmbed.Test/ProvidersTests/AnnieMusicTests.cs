@@ -1,6 +1,6 @@
 ﻿namespace OEmbed.Test.ProvidersTests
 {
-    public class CoubTests
+    public class AnnieMusicTests
     {
         private readonly ITestOutputHelper _output;
 
@@ -8,16 +8,17 @@
 
         private readonly IOEmbedConsumer _oEmbedConsumer;
 
-        public CoubTests(ITestOutputHelper output)
+        public AnnieMusicTests(ITestOutputHelper output)
         {
             _output = output;
-            _oEmbedProvider = new CoubProvider();
+            _oEmbedProvider = new AnnieMusicProvider();
             _oEmbedConsumer = TestHelpers.BuildConsumer(new[] { _oEmbedProvider });
         }
 
         [Theory]
-        [InlineData("https://coub.com/view/utw6y")]
-        [InlineData("https://coub.com/embed/utw6y")]
+        [InlineData("https://anniemusic.app/t/1234")]
+        [InlineData("https://anniemusic.app/t/vqf1Geraao")]
+        [InlineData("https://anniemusic.app/t/1416?utm_campaign=SasaStation%27s%20Music%20Newsletter&utm_medium=email&utm_source=Revue%20newsletter")]
         public void UrlMatchTest(string url)
         {
             TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
@@ -26,21 +27,21 @@
         [Fact]
         public async void RequestTest()
         {
-            Video? result = await _oEmbedConsumer.RequestAsync<Video>("https://coub.com/view/utw6y");
+            var result = await _oEmbedConsumer.RequestAsync<Rich>("https://anniemusic.app/t/1234");
 
             Assert.NotNull(result);
-            Assert.Equal("video", result!.Type);
+            Assert.Equal("rich", result!.Type);
             Assert.Equal("1.0", result.Version);
             Assert.NotNull(result.Title);
             Assert.NotNull(result.AuthorName);
             Assert.Null(result.AuthorUrl);
             Assert.NotNull(result.ProviderName);
             Assert.NotNull(result.ProviderUrl);
-            Assert.Null(result.CacheAge);
+            Assert.NotNull(result.CacheAge);
             Assert.NotNull(result.ThumbnailUrl);
-            Assert.NotNull(result.ThumbnailWidth);
-            Assert.NotNull(result.ThumbnailHeight);
-            // Video type values
+            Assert.Null(result.ThumbnailWidth);
+            Assert.Null(result.ThumbnailHeight);
+            // Rich type values
             Assert.NotNull(result.Html);
             Assert.NotEqual(0, result.Width);
             Assert.NotEqual(0, result.Height);

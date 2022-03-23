@@ -37,9 +37,14 @@ namespace HeyRed.OEmbed.Defaults
             if (reader.TokenType == JsonTokenType.String)
             {
                 string? stringValue = reader.GetString();
-                if (stringValue != null && stringValue.EndsWith('%'))
+                if (stringValue != null)
                 {
-                    if (int.TryParse(stringValue.Replace("%", ""), out int value))
+                    if (stringValue.EndsWith('%'))
+                    {
+                        stringValue = stringValue.Replace("%", "");
+                    }
+
+                    if (int.TryParse(stringValue, out int value))
                     {
                         return value;
                     }
