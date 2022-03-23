@@ -10,6 +10,9 @@ using HeyRed.OEmbed.Defaults;
 using HeyRed.OEmbed.Models;
 using HeyRed.OEmbed.Providers.Common;
 
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+
 namespace HeyRed.OEmbed
 {
     public class OEmbedConsumer : IOEmbedConsumer
@@ -24,6 +27,8 @@ namespace HeyRed.OEmbed
 
         private readonly ICache _cache;
 
+        private readonly ILogger _logger;
+
         private readonly OEmbedOptions _options;
 
         private static readonly object _initLock = new();
@@ -34,6 +39,7 @@ namespace HeyRed.OEmbed
             IJsonSerializer? jsonSerializer = null,
             IXmlSerializer? xmlSerializer = null,
             ICache? cache = null,
+            ILoggerFactory? loggerFactory = null,
             OEmbedOptions? options = null)
         {
             _httpClient = httpClient.EnsureNotNull();
@@ -41,6 +47,9 @@ namespace HeyRed.OEmbed
             _jsonSerializer = jsonSerializer ?? new DefaultJsonSerializer();
             _xmlSerializer = xmlSerializer ?? new DefaultXmlSerializer();
             _cache = cache ?? new DefaultCache();
+            _logger =
+                loggerFactory?.CreateLogger<OEmbedConsumer>() ??
+                NullLoggerFactory.Instance.CreateLogger<OEmbedConsumer>();
             _options = options ?? new();
 
             if (_httpClient.DefaultRequestHeaders.UserAgent.Count == 0)
@@ -102,6 +111,8 @@ namespace HeyRed.OEmbed
                 requestUrl = UrlHelpers.AddQueryString(requestUrl, parameters);
             }
 
+            _logger.LogDebug("Request url: {requestUrl}", requestUrl);
+
             if (_options.EnableCache)
             {
                 // Cache handles request failures by yourself
@@ -114,8 +125,10 @@ namespace HeyRed.OEmbed
             {
                 return await DoRequestAsync<T>(requestUrl, cancellationToken);
             }
-            catch
+            catch (Exception ex)
             {
+                _logger.LogWarning(ex, "An exception has occurred while processing request to url: {requestUrl}", requestUrl);
+
                 return null;
             }
         }
@@ -165,6 +178,8 @@ namespace HeyRed.OEmbed
             {
                 return await RequestAsync<T>(uri, maxWidth, maxHeight, cancellationToken);
             }
+
+            _logger.LogDebug("Invalid url \"{url}\". Skip processing.", url);
 
             return null;
         }
@@ -223,6 +238,8 @@ namespace HeyRed.OEmbed
             {
                 return await RequestAsync(uri, maxWidth, maxHeight, cancellationToken);
             }
+
+            _logger.LogDebug("Invalid url \"{url}\". Skip processing.", url);
 
             return null;
         }

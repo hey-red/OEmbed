@@ -5,6 +5,8 @@ using System.Runtime.Caching;
 using HeyRed.OEmbed.Abstractions;
 using NeoSmart.Synchronization;
 using HeyRed.OEmbed.Models;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace HeyRed.OEmbed.Defaults
 {
@@ -14,16 +16,21 @@ namespace HeyRed.OEmbed.Defaults
 
         private readonly ICacheKey _cacheKey;
 
+        private readonly ILogger _logger;
+
         private readonly CacheOptions _options;
 
-        public DefaultCache() : this(null, null)
+        public DefaultCache() : this(null, null, null)
         {
         }
 
-        public DefaultCache(ICacheKey? cacheKey, CacheOptions? cacheOptions)
+        public DefaultCache(ICacheKey? cacheKey, ILoggerFactory? loggerFactory, CacheOptions? cacheOptions)
         {
             _cache = new MemoryCache("oembed");
             _cacheKey = cacheKey ?? new DefaultCacheKey();
+            _logger = _logger =
+                loggerFactory?.CreateLogger<OEmbedConsumer>() ??
+                NullLoggerFactory.Instance.CreateLogger<OEmbedConsumer>();
             _options = cacheOptions ?? new();
         }
 
@@ -50,9 +57,9 @@ namespace HeyRed.OEmbed.Defaults
                     {
                         item = await task(url);
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        // TODO: logger
+                        _logger.LogWarning(ex, "An exception has occurred while processing request to url: {url}", url);
                     }
 
                     if (item is T)
@@ -64,12 +71,24 @@ namespace HeyRed.OEmbed.Defaults
                         // Save empty object, because provider can return null/throw HttpRequestException
                         // This protects us against multiple request to invalid/not found urls
                         _cache.Set(key, _emptyValue, DateTimeOffset.UtcNow.AddMinutes(3));
+
+                        _logger.LogDebug("Saved temporary placeholder object to avoid processing invalid/not found urls.");
                     }
                 }
+                else
+                {
+                    _logger.LogDebug(CACHED_LOG, url, key);
+                }
+            }
+            else
+            {
+                _logger.LogDebug(CACHED_LOG, url, key);
             }
 
             return item is T obj ? obj : null;
         }
+
+        private const string CACHED_LOG = "Return cached value. Url \"{url}\" with key \"{key}\".";
 
         private static readonly object _emptyValue = new();
 
