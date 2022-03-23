@@ -29,12 +29,25 @@ namespace HeyRed.OEmbed
 
             AddDefaultServices(builder, setupAction);
 
+            builder.AddProvider<CoubProvider>();
+            builder.AddProvider<DeviantartProvider>();
+            builder.AddProvider<FlickrProvider>();
+            builder.AddProvider<GfycatProvider>();
+            builder.AddProvider<GiphyProvider>();
+            builder.AddProvider<GyazoProvider>();
+            builder.AddProvider<ImgurProvider>();
             builder.AddProvider<InstagramProvider>();
+            builder.AddProvider<KickstarterProvider>();
+            builder.AddProvider<PinterestProvider>();
+            builder.AddProvider<PixivProvider>();
+            builder.AddProvider<RedditProvider>();
+            builder.AddProvider<SoundcloudProvider>();
+            builder.AddProvider<SpotifyProvider>();
             builder.AddProvider<TiktokProvider>();
+            builder.AddProvider<TumblrProvider>();
             builder.AddProvider<TwitterProvider>();
             builder.AddProvider<VimeoProvider>();
             builder.AddProvider<YoutubeProvider>();
-            builder.AddProvider<RedditProvider>();
 
             return builder;
         }
