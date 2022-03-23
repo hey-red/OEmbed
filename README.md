@@ -28,12 +28,25 @@ services.AddOEmbed(options =>
 
 By default it's register all providers listed below:
 
+* CoubProvider
+* DeviantartProvider
+* FlickrProvider
+* GfycatProvider
+* GiphyProvider
+* GyazoProvider
+* ImgurProvider
 * InstagramProvider
+* KickstarterProvider
+* PinterestProvider
+* PixivProvider
+* RedditProvider
+* SoundcloudProvider
+* SpotifyProvider
 * TiktokProvider
+* TumblrProvider
 * TwitterProvider
 * VimeoProvider
 * YoutubeProvider
-* RedditProvider
 
 Additional providers can be added during configuration:
 
@@ -67,12 +80,6 @@ services.AddOEmbed()
 Additional providers:
 
 * FacebookProvider
-* CoubProvider
-* ImgurProvider
-* SoundcloudProvider
-* GfycatProvider
-* GiphyProvider
-* GyazoProvider
 
 NOTE: While Instagram can work without access_token(with limited legacy endpoint), Facebook is just throw exception if you didn't provide these token.
 
