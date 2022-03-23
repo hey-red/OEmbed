@@ -51,6 +51,8 @@ By default it's register all providers listed below:
 Additional providers can be added during configuration:
 
 ```C#
+using HeyRed.OEmbed.Providers;
+
 services.AddOEmbed()
     .ClearProviders() // remove all default providers
     .AddProvider<YoutubeProvider>()
@@ -80,6 +82,12 @@ services.AddOEmbed()
 Additional providers:
 
 * FacebookProvider
+* AfreecatvProvider
+* VliveProvider
+* AnnieMusicProvider
+* AudioboomProvider
+* AudiomackProvider
+* CodepenProvider
 
 NOTE: While Instagram can work without access_token(with limited legacy endpoint), Facebook is just throw exception if you didn't provide these token.
 
