@@ -36,6 +36,7 @@ namespace OEmbed.Test.ProvidersTests
         }
 
         [Theory]
+        [InlineData("https://www.instagram.com/dlwlrma/")]
         [InlineData("https://www.instagram.com/p/1XSKgBAGz-/")]
         [InlineData("https://www.instagram.com/tv/CHLVnWVAF9I/")]
         [InlineData("https://www.instagram.com/reel/CW0gZu2rouF/")]
@@ -52,6 +53,31 @@ namespace OEmbed.Test.ProvidersTests
         public async void RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Rich>("https://www.instagr.am/dlwlrma/tv/CbKjea_ARNB/");
+
+            Assert.NotNull(result);
+            Assert.Equal("rich", result!.Type);
+            Assert.Equal("1.0", result.Version);
+            Assert.Null(result.Title);
+            Assert.NotNull(result.AuthorName);
+            Assert.Null(result.AuthorUrl);
+            Assert.NotNull(result.ProviderName);
+            Assert.NotNull(result.ProviderUrl);
+            Assert.Null(result.CacheAge);
+            Assert.NotNull(result.ThumbnailUrl);
+            Assert.NotNull(result.ThumbnailWidth);
+            Assert.NotNull(result.ThumbnailHeight);
+            // Rich type values
+            Assert.NotNull(result.Html);
+            Assert.NotEqual(0, result.Width);
+            Assert.Null(result.Height);
+
+            _output.WriteLine(result?.AuthorName);
+        }
+
+        [Fact]
+        public async void ProfileRequestTest()
+        {
+            var result = await _oEmbedConsumer.RequestAsync<Rich>("https://www.instagram.com/dlwlrma/");
 
             Assert.NotNull(result);
             Assert.Equal("rich", result!.Type);

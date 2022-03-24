@@ -30,19 +30,19 @@ namespace HeyRed.OEmbed.Providers
                 // I think validation is better than error in runtime
                 options.Parameters.ThrowIfInvalidMetaAccessToken();
 
-                // Posts, reels, tv
+                // Posts, reels, tv, user
                 AddScheme(
                     matcher: new RegexMatcher(@"
-                        /(?:[a-zA-Z0-9_\-\.]+/)?
-                        (?:p|tv|reel)/([a-zA-Z0-9_-]+)/?
+                        /(?:[\w_\-]+/)?
+                        (?:p/|tv/|reel/)?([a-zA-Z0-9_-]+)/?
                         (?:[\w?#&=]+)?"),
                     apiEndpoint: "https://graph.facebook.com/v13.0/instagram_oembed",
                     resourceType: ResourceType.Rich);
             }
             // Legacy endpoint https://developers.facebook.com/docs/instagram/oembed-legacy
+            // NOTE: limited to post
             else
             {
-                // NOTE: limited to post
                 AddScheme(
                     matcher: new RegexMatcher(@"/p\/([^/?#&]+).*"),
                     apiEndpoint: "http://api.instagram.com/oembed",
