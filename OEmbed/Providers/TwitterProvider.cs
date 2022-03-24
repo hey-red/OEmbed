@@ -19,9 +19,30 @@ namespace HeyRed.OEmbed.Providers
                 "mobile.twitter.com"
             });
 
+            // Statuses
             AddScheme(
-                matcher: new RegexMatcher(@"/\S+/status(es)?/(\d+)(?:\?|/)?\S*"),
+                matcher: new RegexMatcher(@"/\w+/status(es)?/(\d+)(?:\?|/)?\S*"),
                 apiEndpoint: "https://publish.twitter.com/oembed",
+                resourceType: ResourceType.Rich);
+
+            // Moments
+            AddScheme(
+                matcher: new RegexMatcher(@"/i/moments/(\d+)(?:\?|/)?\S*"),
+                apiEndpoint: "https://publish.twitter.com/oembed?i=moment",
+                resourceType: ResourceType.Rich);
+
+            // Timelines
+            AddScheme(
+                matcher: new RegexMatcher(
+                    @"/(\w+)/(?:timelines|lists)/(\d+)(?:\?|/)?\S*",
+                    @"/(\w+)/likes(?:\?|/)?\S*"),
+                apiEndpoint: "https://publish.twitter.com/oembed?i=timeline",
+                resourceType: ResourceType.Rich);
+
+            // Users
+            AddScheme(
+                matcher: new RegexMatcher(@"/(\w+)/?"),
+                apiEndpoint: "https://publish.twitter.com/oembed?i=user",
                 resourceType: ResourceType.Rich);
         }
     }
