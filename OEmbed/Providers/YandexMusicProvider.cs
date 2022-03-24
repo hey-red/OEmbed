@@ -9,6 +9,7 @@ namespace HeyRed.OEmbed.Providers
 {
     /// <summary>
     /// What about reading the spec, yandex team? 🤦‍♀️
+    /// NOTE: Can response with captcha type. Rate limit?
     /// </summary>
     public record YandexMusicProvider : ProviderBase
     {
