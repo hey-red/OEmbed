@@ -26,6 +26,7 @@ namespace OEmbed.Test.ProvidersTests
         [InlineData("https://www.youtube.com/watch?v=LKWFkELeYwc&t=5")]
         [InlineData("https://www.youtube.com/watch?v=LKWFkELeYwc&t=5s")]
         [InlineData("https://www.youtube.com/watch?v=GxmJBAIoWUo&list=PL8mPWv3h4qJcOYZn8iFMLga3DjAY5nQLQ")]
+        [InlineData("https://www.youtube.com/playlist?list=PL8mPWv3h4qJcOYZn8iFMLga3DjAY5nQLQ")]
         public void UrlMatchTest(string url)
         {
             TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
