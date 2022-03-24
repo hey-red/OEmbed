@@ -88,6 +88,9 @@ Additional providers:
 * AudioboomProvider
 * AudiomackProvider
 * CodepenProvider
+* YandexMusicProvider
+* DeezerProvider
+* DailymotionProvider
 
 NOTE: While Instagram can work without access_token(with limited legacy endpoint), Facebook is just throw exception if you didn't provide these token.
 
