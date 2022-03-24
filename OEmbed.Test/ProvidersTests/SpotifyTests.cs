@@ -28,9 +28,6 @@
             TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
         }
 
-        /// <summary>
-        /// NOTE: spotify requires user-agent header
-        /// </summary>
         [Fact]
         public async void RequestTest()
         {

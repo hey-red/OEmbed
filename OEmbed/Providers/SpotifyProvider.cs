@@ -2,6 +2,9 @@
 
 namespace HeyRed.OEmbed.Providers
 {
+    /// <summary>
+    /// NOTE: spotify requires user-agent header
+    /// </summary>
     public record SpotifyProvider : ProviderBase
     {
         public SpotifyProvider()
