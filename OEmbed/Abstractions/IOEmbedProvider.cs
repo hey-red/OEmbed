@@ -9,9 +9,9 @@ namespace HeyRed.OEmbed.Abstractions
     {
         bool CanProcess(Uri uri);
 
-        ResponseFormat ResponseType { get; }
+        ResponseFormat Format { get; }
 
-        IReadOnlyDictionary<IUriMatcher, ProviderScheme> Schemes { get; }
+        ProviderScheme? MatchScheme(Uri uri);
 
         IEnumerable<KeyValuePair<string, string?>> Parameters { get; }
     }

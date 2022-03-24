@@ -22,16 +22,12 @@ namespace HeyRed.OEmbed
             IOEmbedProvider? provider = _oEmbedProviders.FirstOrDefault(pr => pr.CanProcess(uri));
             if (provider is not null)
             {
-                var scheme = provider.Schemes
-                    .Where(scheme => scheme.Key.IsMatch(uri))
-                    .Select(scheme => scheme.Value)
-                    .FirstOrDefault();
-                // Should never happens
+                var scheme = provider.MatchScheme(uri);
                 if (scheme is not null)
                 {
                     return new OEmbedProviderInfo(
                         Scheme: scheme,
-                        ResponseFormat: provider.ResponseType,
+                        ResponseFormat: provider.Format,
                         Parameters: provider.Parameters);
                 }
             }

@@ -27,14 +27,14 @@ namespace OEmbed.Test
             if (shouldMatch)
             {
                 Assert.True(provider.CanProcess(uri));
-                Assert.Contains(provider.Schemes, scheme => scheme.Key.IsMatch(uri));
+                Assert.NotNull(provider.MatchScheme(uri));
             }
             else
             {
                 bool canProcess = provider.CanProcess(uri);
                 if (canProcess)
                 {
-                    Assert.DoesNotContain(provider.Schemes, scheme => scheme.Key.IsMatch(uri));
+                    Assert.Null(provider.MatchScheme(uri));
                 }
             }
         }

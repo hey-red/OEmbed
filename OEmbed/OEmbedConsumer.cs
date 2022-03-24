@@ -104,7 +104,8 @@ namespace HeyRed.OEmbed
             apiEndpoint.EnsureNotNull();
             request.EnsureNotNull();
 
-            string requestUrl = apiEndpoint + request.ToString();
+            string requestUrl = UrlHelpers.AddQueryString(apiEndpoint.OriginalString, request.BuildQueryParams());
+
             // Append query parameters
             if (parameters != null)
             {

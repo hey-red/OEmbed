@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using HeyRed.OEmbed.Abstractions;
 
@@ -9,9 +10,9 @@ namespace HeyRed.OEmbed.Providers.Common
     {
         protected readonly List<string> _allowedHosts = new();
 
-        private readonly Dictionary<IUriMatcher, ProviderScheme> _schemes = new();
+        protected readonly Dictionary<IUriMatcher, (Uri Endpoint, ResourceType ResourceType)> _schemes = new();
 
-        private IEnumerable<KeyValuePair<string, string?>> _parameters = Array.Empty<KeyValuePair<string, string?>>();
+        protected IEnumerable<KeyValuePair<string, string?>> _parameters = Array.Empty<KeyValuePair<string, string?>>();
 
         protected void AddParameters(IEnumerable<KeyValuePair<string, string?>>? parameters)
         {
@@ -23,16 +24,32 @@ namespace HeyRed.OEmbed.Providers.Common
 
         protected void AddAllowedHosts(IEnumerable<string> hosts) => _allowedHosts.AddRange(hosts);
 
-        protected void AddScheme(IUriMatcher matcher, string apiEndpoint, ResourceType resourceType)
+        protected void AddScheme(
+            IUriMatcher matcher,
+            string apiEndpoint,
+            ResourceType resourceType)
         {
-            _schemes.Add(matcher.EnsureNotNull(), new(new Uri(apiEndpoint), resourceType));
+            _schemes.Add(matcher.EnsureNotNull(), (new Uri(apiEndpoint), resourceType));
         }
 
         public virtual bool CanProcess(Uri uri) => _allowedHosts.Contains(uri.Host);
 
-        public virtual ResponseFormat ResponseType => ResponseFormat.Json;
+        public virtual ProviderScheme? MatchScheme(Uri uri)
+        {
+            var pair = _schemes
+                .Where(s => s.Key.IsMatch(uri))
+                .Select(s => s.Value)
+                .FirstOrDefault();
 
-        public IReadOnlyDictionary<IUriMatcher, ProviderScheme> Schemes => _schemes;
+            if (pair != default)
+            {
+                return new ProviderScheme(pair.Endpoint, pair.ResourceType);
+            }
+
+            return null;
+        }
+
+        public virtual ResponseFormat Format => ResponseFormat.Json;
 
         public IEnumerable<KeyValuePair<string, string?>> Parameters => _parameters;
     }

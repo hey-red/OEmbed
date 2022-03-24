@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
-using System.Text;
 
 using HeyRed.OEmbed.Abstractions;
 
@@ -40,32 +40,29 @@ namespace HeyRed.OEmbed
         /// </summary>
         public int? MaxHeight { get; }
 
-        public override string ToString()
+        public IEnumerable<KeyValuePair<string, string?>> BuildQueryParams()
         {
-            var sb = new StringBuilder();
-
-            sb.Append("?url=");
-            sb.Append(WebUtility.UrlEncode(Url.OriginalString));
+            var queryParams = new List<KeyValuePair<string, string?>>
+            {
+                new("url", Url.OriginalString)
+            };
 
             if (MaxWidth is not null)
             {
-                sb.Append("&maxwidth=");
-                sb.Append(MaxWidth);
+                queryParams.Add(new("maxwidth", MaxWidth.ToString()));
             }
 
             if (MaxHeight is not null)
             {
-                sb.Append("&maxheight=");
-                sb.Append(MaxHeight);
+                queryParams.Add(new("maxheight", MaxHeight.ToString()));
             }
 
             if (Type is not null)
             {
-                sb.Append("&format=");
-                sb.Append(Type.ToString()!.ToLower());
+                queryParams.Add(new("format", Type.ToString()!.ToLower()));
             }
 
-            return sb.ToString();
+            return queryParams;
         }
     }
 }
