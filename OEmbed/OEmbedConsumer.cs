@@ -146,7 +146,7 @@ namespace HeyRed.OEmbed
             CancellationToken cancellationToken = default)
             where T : Base
         {
-            if (uri.IsFile) return null;
+            if (!UrlHelpers.IsValidUri(uri)) return null;
 
             OEmbedProviderInfo? providerInfo = _providerRegistry.GetProvider(uri);
             if (providerInfo is not null)
@@ -175,7 +175,7 @@ namespace HeyRed.OEmbed
             CancellationToken cancellationToken = default)
             where T : Base
         {
-            if (Uri.TryCreate(url, uriKind: UriKind.Absolute, out var uri) && uri.IsWellFormedOriginalString())
+            if (Uri.TryCreate(url, uriKind: UriKind.Absolute, out var uri))
             {
                 return await RequestAsync<T>(uri, maxWidth, maxHeight, cancellationToken);
             }
@@ -199,7 +199,7 @@ namespace HeyRed.OEmbed
             int? maxHeight = null,
             CancellationToken cancellationToken = default)
         {
-            if (uri.IsFile) return null;
+            if (!UrlHelpers.IsValidUri(uri)) return null;
 
             OEmbedProviderInfo? providerInfo = _providerRegistry.GetProvider(uri);
             if (providerInfo is not null)
@@ -235,7 +235,7 @@ namespace HeyRed.OEmbed
             int? maxHeight = null,
             CancellationToken cancellationToken = default)
         {
-            if (Uri.TryCreate(url, uriKind: UriKind.Absolute, out var uri) && uri.IsWellFormedOriginalString())
+            if (Uri.TryCreate(url, uriKind: UriKind.Absolute, out var uri))
             {
                 return await RequestAsync(uri, maxWidth, maxHeight, cancellationToken);
             }

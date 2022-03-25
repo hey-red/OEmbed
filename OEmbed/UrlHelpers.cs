@@ -55,5 +55,9 @@ namespace HeyRed.OEmbed
             sb.Append(anchorText);
             return sb.ToString();
         }
+
+        public static bool IsValidUri(Uri uri) =>
+            uri.IsWellFormedOriginalString() &&
+            uri?.Scheme == Uri.UriSchemeHttp || uri?.Scheme == Uri.UriSchemeHttps;
     }
 }
