@@ -39,7 +39,7 @@ namespace HeyRed.OEmbed.Providers
                     var queryPairs = new List<KeyValuePair<string, string?>>();
                     var endpoint = scheme.Value.Endpoint.ToString();
 
-                    // Albums, tracks
+                    // Playlists
                     if (endpoint.Contains("playlists"))
                     {
                         var owner = match.CapturedValues
@@ -59,7 +59,7 @@ namespace HeyRed.OEmbed.Providers
                             queryPairs.Add(new("kind", playlistId));
                         }
                     }
-                    // Playlists
+                    // Albums, tracks
                     else
                     {
                         var albumId = match.CapturedValues
