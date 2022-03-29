@@ -23,7 +23,7 @@ namespace HeyRed.OEmbed.Providers
                     album/(?<albumId>\d+)|
                     album/(?<albumId>\d+)/track/(?<trackId>\d+)|
                     track/(?<trackId>\d+)|
-                    users/(?<owner>[\w-]+)/playlists/(?<playlistId>\d+)
+                    users/(?<owner>\S+)/playlists/(?<playlistId>\d+)
                     )/?"),
                 apiEndpoint: "https://music.yandex.ru/handlers/oembed-json.jsx",
                 resourceType: ResourceType.Rich);

@@ -20,6 +20,7 @@
         [InlineData("https://music.yandex.ru/album/21260060/track/101006830")]
         [InlineData("https://music.yandex.ru/track/101006830")]
         [InlineData("https://music.yandex.ru/users/music-blog/playlists/2127")]
+        [InlineData("https://music.yandex.ru/users/ya.playlist/playlists/1250")]
         public void UrlMatchTest(string url)
         {
             TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
