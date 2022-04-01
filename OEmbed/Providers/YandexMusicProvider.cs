@@ -22,8 +22,7 @@ namespace HeyRed.OEmbed.Providers
                     @"/(?:
                     album/(?<albumId>\d+)|
                     album/(?<albumId>\d+)/track/(?<trackId>\d+)|
-                    track/(?<trackId>\d+)|
-                    users/(?<owner>\S+)/playlists/(?<playlistId>\d+)
+                    track/(?<trackId>\d+)
                     )/?"),
                 apiEndpoint: "https://music.yandex.ru/handlers/oembed-json.jsx",
                 resourceType: ResourceType.Rich);
@@ -39,48 +38,25 @@ namespace HeyRed.OEmbed.Providers
                     var queryPairs = new List<KeyValuePair<string, string?>>();
                     var endpoint = scheme.Value.Endpoint.ToString();
 
-                    // Playlists
-                    if (endpoint.Contains("playlists"))
-                    {
-                        var owner = match.CapturedValues
-                            .Where(v => v.Key == "owner")
-                            .Select(v => v.Value)
-                            .FirstOrDefault();
-
-                        var playlistId = match.CapturedValues
-                            .Where(v => v.Key == "playlistId")
-                            .Select(v => v.Value)
-                            .FirstOrDefault();
-
-                        if (!string.IsNullOrWhiteSpace(owner) &&
-                            !string.IsNullOrWhiteSpace(playlistId))
-                        {
-                            queryPairs.Add(new("owner", owner));
-                            queryPairs.Add(new("kind", playlistId));
-                        }
-                    }
                     // Albums, tracks
-                    else
+                    var albumId = match.CapturedValues
+                        .Where(v => v.Key == "albumId")
+                        .Select(v => v.Value)
+                        .FirstOrDefault();
+
+                    var trackId = match.CapturedValues
+                        .Where(v => v.Key == "trackId")
+                        .Select(v => v.Value)
+                        .FirstOrDefault();
+
+                    if (!string.IsNullOrWhiteSpace(albumId))
                     {
-                        var albumId = match.CapturedValues
-                            .Where(v => v.Key == "albumId")
-                            .Select(v => v.Value)
-                            .FirstOrDefault();
+                        queryPairs.Add(new("album", albumId));
+                    }
 
-                        var trackId = match.CapturedValues
-                            .Where(v => v.Key == "trackId")
-                            .Select(v => v.Value)
-                            .FirstOrDefault();
-
-                        if (!string.IsNullOrWhiteSpace(albumId))
-                        {
-                            queryPairs.Add(new("album", albumId));
-                        }
-
-                        if (!string.IsNullOrWhiteSpace(trackId))
-                        {
-                            queryPairs.Add(new("track", trackId));
-                        }
+                    if (!string.IsNullOrWhiteSpace(trackId))
+                    {
+                        queryPairs.Add(new("track", trackId));
                     }
 
                     if (queryPairs.Any())
