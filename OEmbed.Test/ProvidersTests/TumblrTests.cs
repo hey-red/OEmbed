@@ -16,7 +16,7 @@
         }
 
         [Theory]
-        [InlineData("https://hersheay.tumblr.com/post/679382416460283904/the-way-irene-looks-at-seulgi")]
+        [InlineData("https://02vin.tumblr.com/post/679391156826701824/01-07-2022")]
         [InlineData("https://shibasommelier.tumblr.com/post/676286044432367616/2016-azienda-agricola-cos-cerasuolo-di-vittoria")]
         public void UrlMatchTest(string url)
         {
@@ -26,7 +26,7 @@
         [Fact]
         public async void RequestTest()
         {
-            var result = await _oEmbedConsumer.RequestAsync<Rich>("https://hersheay.tumblr.com/post/679382416460283904/the-way-irene-looks-at-seulgi");
+            var result = await _oEmbedConsumer.RequestAsync<Rich>("https://02vin.tumblr.com/post/679391156826701824/01-07-2022");
 
             Assert.NotNull(result);
             Assert.Equal("rich", result!.Type);

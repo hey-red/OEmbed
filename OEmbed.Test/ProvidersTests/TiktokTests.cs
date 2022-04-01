@@ -27,7 +27,7 @@
         [Fact]
         public async void RequestTest()
         {
-            var result = await _oEmbedConsumer.RequestAsync<Video>("https://www.tiktok.com/@faaaariii_/video/6934593663062265094");
+            var result = await _oEmbedConsumer.RequestAsync<Video>("https://www.tiktok.com/@_sof7a_/video/7070457549543329026");
 
             Assert.NotNull(result);
             Assert.Equal("video", result!.Type);
