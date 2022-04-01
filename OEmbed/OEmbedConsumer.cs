@@ -25,7 +25,7 @@ namespace HeyRed.OEmbed
 
         private readonly IXmlSerializer _xmlSerializer;
 
-        private readonly ICache _cache;
+        private readonly ICache? _cache;
 
         private readonly ILogger _logger;
 
@@ -46,11 +46,16 @@ namespace HeyRed.OEmbed
             _providerRegistry = providerRegistry.EnsureNotNull();
             _jsonSerializer = jsonSerializer ?? new DefaultJsonSerializer();
             _xmlSerializer = xmlSerializer ?? new DefaultXmlSerializer();
-            _cache = cache ?? new DefaultCache();
+            _options = options ?? new();
+
             _logger =
                 loggerFactory?.CreateLogger<OEmbedConsumer>() ??
                 NullLoggerFactory.Instance.CreateLogger<OEmbedConsumer>();
-            _options = options ?? new();
+
+            if (_options.EnableCache)
+            {
+                _cache = cache ?? new DefaultCache();
+            }
 
             if (_httpClient.DefaultRequestHeaders.UserAgent.Count == 0)
             {
@@ -118,7 +123,7 @@ namespace HeyRed.OEmbed
             {
                 // Cache handles request failures by yourself
                 return
-                    await _cache.AddOrGetExistingAsync(requestUrl, async requestUrl =>
+                    await _cache!.AddOrGetExistingAsync(requestUrl, async requestUrl =>
                     await DoRequestAsync<T>(requestUrl, cancellationToken));
             }
 
