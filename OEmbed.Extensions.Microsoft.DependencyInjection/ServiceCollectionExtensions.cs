@@ -36,7 +36,6 @@ namespace HeyRed.OEmbed
             builder.AddProvider<GiphyProvider>();
             builder.AddProvider<GyazoProvider>();
             builder.AddProvider<ImgurProvider>();
-            builder.AddProvider<InstagramProvider>();
             builder.AddProvider<KickstarterProvider>();
             builder.AddProvider<PinterestProvider>();
             builder.AddProvider<PixivProvider>();
