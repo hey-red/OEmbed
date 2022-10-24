@@ -6,10 +6,6 @@ namespace OEmbed.Test.ProvidersTests
     {
         private readonly ITestOutputHelper _output;
 
-        private readonly IOEmbedProvider _legacyOembedProvider;
-
-        private readonly IOEmbedConsumer _legacyOembedConsumer;
-
         private readonly IOEmbedProvider _oEmbedProvider;
 
         private readonly IOEmbedConsumer _oEmbedConsumer;
@@ -17,9 +13,6 @@ namespace OEmbed.Test.ProvidersTests
         public InstagramTests(ITestOutputHelper output)
         {
             _output = output;
-
-            _legacyOembedProvider = new InstagramProvider();
-            _legacyOembedConsumer = TestHelpers.BuildConsumer(new[] { _legacyOembedProvider });
 
             var configuration = new ConfigurationBuilder()
                 .AddUserSecrets<Secrets>()

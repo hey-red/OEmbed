@@ -35,7 +35,6 @@ By default it's register all providers listed below:
 * GiphyProvider
 * GyazoProvider
 * ImgurProvider
-* InstagramProvider
 * KickstarterProvider
 * PinterestProvider
 * PixivProvider
@@ -82,6 +81,7 @@ services.AddOEmbed()
 Additional providers:
 
 * FacebookProvider
+* InstagramProvider
 * AfreecatvProvider
 * VliveProvider
 * AnnieMusicProvider
@@ -91,8 +91,6 @@ Additional providers:
 * YandexMusicProvider
 * DeezerProvider
 * DailymotionProvider
-
-NOTE: While Instagram can work without access_token(with limited legacy endpoint), Facebook is just throw exception if you didn't provide these token.
 
 ## Usage
 
