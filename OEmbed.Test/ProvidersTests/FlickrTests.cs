@@ -30,7 +30,7 @@
         [Fact]
         public async void RequestPhotoTest()
         {
-            var result = await _oEmbedConsumer.RequestAsync<Photo>("https://www.flickr.com/photos/191258271@N04/51414360766/in/album-72157720098386911/");
+            var result = await _oEmbedConsumer.RequestAsync<Photo>("https://www.flickr.com/photos/lucian-f/49267518876/in/album-72157712341359412/");
 
             Assert.NotNull(result);
             Assert.Equal("photo", result!.Type);
@@ -56,7 +56,7 @@
         [Fact]
         public async void RequestAlbumTest()
         {
-            var result = await _oEmbedConsumer.RequestAsync<Rich>("https://www.flickr.com/photos/191258271@N04/albums/72157720098386911");
+            var result = await _oEmbedConsumer.RequestAsync<Rich>("https://www.flickr.com/photos/lucian-f/albums/72157712341359412");
 
             Assert.NotNull(result);
             Assert.Equal("rich", result!.Type);
