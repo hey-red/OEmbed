@@ -15,7 +15,7 @@ namespace HeyRed.OEmbed.Defaults
     {
         private static readonly JsonSerializerOptions serializerOptions = new()
         {
-            PropertyNamingPolicy = JsonNamingPolicies.SnakeLowerCase,
+            PropertyNamingPolicy = JsonNamingPolicies.SnakeCaseLower,
             NumberHandling = JsonNumberHandling.AllowReadingFromString,
             Converters =
             {
