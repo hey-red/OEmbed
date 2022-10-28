@@ -19,7 +19,7 @@ namespace HeyRed.OEmbed.Providers
             });
 
             AddScheme(
-                matcher: new RegexMatcher(@"/(?:embed/|video/|shorts/|playlist\?list=|watch\?v=)?([\w]+)(?:[\w\&\?\=\.]+)?"),
+                matcher: new RegexMatcher(@"/(?:embed/|video/|shorts/|playlist\?list=|watch\?v=)?([\w|-]+)(?:[\w\&\?\=\.]+)?"),
                 apiEndpoint: "https://www.youtube.com/oembed",
                 resourceType: ResourceType.Video);
         }
