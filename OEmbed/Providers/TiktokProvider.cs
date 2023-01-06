@@ -13,6 +13,12 @@ namespace HeyRed.OEmbed.Providers
                 "m.tiktok.com"
             });
 
+            // https://developers.tiktok.com/doc/embed-creator-profiles/
+            AddScheme(
+                matcher: new RegexMatcher("/(@[^/]*)"),
+                apiEndpoint: "https://www.tiktok.com/oembed",
+                resourceType: ResourceType.Rich);
+
             // https://developers.tiktok.com/doc/embed-videos/
             AddScheme(
                 matcher: new RegexMatcher(@"/(?:v|@[^\/]*\/video)\/(\d+)(?:\.html|(?:\?\S*)?)"),
