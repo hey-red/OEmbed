@@ -85,11 +85,15 @@ namespace HeyRed.OEmbed
 
             using Stream responseStream = await response.Content.ReadAsStreamAsync(cancellationToken);
 
-            // Instead of throwing an exception, we select serializer based on resource response content type.
+            // Select serializer based on resource response content type.
+            string? mediaType = response.Content.Headers.ContentType?.MediaType;
             return
-                response.Content.Headers.ContentType?.MediaType == "text/xml" ?
-                    _xmlSerializer.Deserialize<T>(responseStream) :
-                    _jsonSerializer.Deserialize<T>(responseStream);
+                mediaType switch
+                {
+                    "text/xml" => _xmlSerializer.Deserialize<T>(responseStream),
+                    "application/json" => _jsonSerializer.Deserialize<T>(responseStream),
+                    _ => throw new InvalidOperationException($"Unsupported response content type: {mediaType}")
+                };
         }
 
         /// <summary>
@@ -119,24 +123,9 @@ namespace HeyRed.OEmbed
 
             _logger.LogDebug("Request url: {requestUrl}", requestUrl);
 
-            if (_options.EnableCache)
-            {
-                // Cache handles request failures by yourself
-                return
-                    await _cache!.AddOrGetExistingAsync(requestUrl, async requestUrl =>
-                    await DoRequestAsync<T>(requestUrl, cancellationToken));
-            }
-
-            try
-            {
-                return await DoRequestAsync<T>(requestUrl, cancellationToken);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogWarning(ex, "An exception has occurred while processing request to url: {requestUrl}", requestUrl);
-
-                return null;
-            }
+            return _options.EnableCache ?
+                await _cache!.AddOrGetExistingAsync(requestUrl, async requestUrl => await DoRequestAsync<T>(requestUrl, cancellationToken)) :
+                await DoRequestAsync<T>(requestUrl, cancellationToken);
         }
 
         /// <summary>

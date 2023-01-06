@@ -60,19 +60,23 @@ namespace HeyRed.OEmbed.Defaults
                     catch (Exception ex)
                     {
                         _logger.LogWarning(ex, "An exception has occurred while processing request to url: {url}", url);
-                    }
 
-                    if (item is T)
-                    {
-                        _cache.Set(key, item, _options.AbsoluteExpiration);
+                        throw;
                     }
-                    else
+                    finally
                     {
-                        // Save empty object, because provider can return null/throw HttpRequestException
-                        // This protects us against multiple request to invalid/not found urls
-                        _cache.Set(key, _emptyValue, DateTimeOffset.UtcNow.AddMinutes(3));
+                        if (item is T)
+                        {
+                            _cache.Set(key, item, _options.AbsoluteExpiration);
+                        }
+                        else
+                        {
+                            // Save empty object, because provider can return null/throw HttpRequestException
+                            // This protects us against multiple request to invalid/not found urls
+                            _cache.Set(key, _emptyValue, DateTimeOffset.UtcNow.AddMinutes(3));
 
-                        _logger.LogDebug("Saved temporary placeholder object to avoid processing invalid/not found urls.");
+                            _logger.LogDebug("Saved temporary placeholder object to avoid processing invalid/not found urls.");
+                        }
                     }
                 }
                 else

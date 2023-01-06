@@ -41,10 +41,10 @@
         {
             var cache = new DefaultCache();
 
-            string url = "https://www.youtube.com/watch?v=D1PvIWdJ8xo";
+            const string url = "https://www.youtube.com/watch?v=D1PvIWdJ8xo";
             var expected = new Rich { AuthorName = "IU", Title = "blueming" };
 
-            var item = await cache.AddOrGetExistingAsync(url, url => Task.FromResult<Rich?>(expected));
+            var item = await cache.AddOrGetExistingAsync(url, _ => Task.FromResult<Rich?>(expected));
 
             var key = _cacheKey.CreateKey(url);
             var cachedItem = await cache.GetAsync<Rich>(key);
@@ -61,7 +61,7 @@
         {
             var cache = new DefaultCache();
 
-            string url = "https://www.youtube.com/watch?v=D1PvIWdJ8xo";
+            const string url = "https://www.youtube.com/watch?v=D1PvIWdJ8xo";
 
             var item = await cache.AddOrGetExistingAsync(url, url => Task.FromResult<Rich?>(null));
 
@@ -82,7 +82,7 @@
             const string badUrl = "https://www.youtube.com/watch?v=D1PvIWdJ8xo";
 
             // List of dublicated links
-            var urls = Enumerable.Repeat(badUrl, 20).ToList();
+            var urls = Enumerable.Repeat(badUrl, 100).ToList();
 
             // Url with ending slash
             urls.Add(badUrl + "/");

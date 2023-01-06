@@ -8,9 +8,7 @@
             var provider = new CoubProvider();
             var consumer = TestHelpers.BuildConsumer(new[] { provider }, withCache: true);
 
-            var result = await consumer.RequestAsync<Video>("https://coub.com/view/ut4ws6a3dsSfefsd");
-
-            Assert.Null(result);
+            await Assert.ThrowsAsync<HttpRequestException>(() => consumer.RequestAsync<Video>("https://coub.com/view/ut4ws6a3dsSfefsd"));
         }
 
         [Fact]
@@ -19,9 +17,7 @@
             var provider = new CoubProvider();
             var consumer = TestHelpers.BuildConsumer(new[] { provider }, withCache: false);
 
-            var result = await consumer.RequestAsync<Video>("https://coub.com/view/ut4ws6a3dsSfefsd");
-
-            Assert.Null(result);
+            await Assert.ThrowsAsync<HttpRequestException>(() => consumer.RequestAsync<Video>("https://coub.com/view/ut4ws6a3dsSfefsd"));
         }
     }
 }
