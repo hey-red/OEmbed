@@ -19,6 +19,7 @@
         [InlineData("https://m.tiktok.com/v/6934593663062265094.html")]
         [InlineData("https://www.tiktok.com/@faaaariii_/video/6934593663062265094")]
         [InlineData("https://www.tiktok.com/@faaaariii_/video/6934593663062265094?is_copy_url=1&is_from_webapp=v1")]
+        [InlineData("https://www.tiktok.com/@faaaariii_")]
         public void UrlMatchTest(string url)
         {
             TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
