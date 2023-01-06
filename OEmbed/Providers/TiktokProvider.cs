@@ -4,9 +4,6 @@ namespace HeyRed.OEmbed.Providers
 {
     public record TiktokProvider : ProviderBase
     {
-        /// <summary>
-        /// https://developers.tiktok.com/doc/embed-videos
-        /// </summary>
         public TiktokProvider()
         {
             AddAllowedHosts(new[]
@@ -16,8 +13,9 @@ namespace HeyRed.OEmbed.Providers
                 "m.tiktok.com"
             });
 
+            // https://developers.tiktok.com/doc/embed-videos/
             AddScheme(
-                matcher: new RegexMatcher(@"/(?:@\S+)?(?:v|video)/(\d+)(?:html|\S*)"),
+                matcher: new RegexMatcher(@"/(?:v|@[^\/]*\/video)\/(\d+)(?:\.html|(?:\?\S*)?)"),
                 apiEndpoint: "https://www.tiktok.com/oembed",
                 resourceType: ResourceType.Video);
         }
