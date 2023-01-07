@@ -58,6 +58,6 @@ namespace HeyRed.OEmbed
 
         public static bool IsValidUri(Uri uri) =>
             uri.IsWellFormedOriginalString() &&
-            uri?.Scheme == Uri.UriSchemeHttp || uri?.Scheme == Uri.UriSchemeHttps;
+            (uri?.Scheme == Uri.UriSchemeHttp || uri?.Scheme == Uri.UriSchemeHttps);
     }
 }
