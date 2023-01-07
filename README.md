@@ -83,7 +83,6 @@ Additional providers:
 * FacebookProvider
 * InstagramProvider
 * AfreecatvProvider
-* VliveProvider
 * AnnieMusicProvider
 * AudioboomProvider
 * AudiomackProvider
@@ -91,6 +90,7 @@ Additional providers:
 * YandexMusicProvider
 * DeezerProvider
 * DailymotionProvider
+* RutubeProvider
 
 ## Usage
 
