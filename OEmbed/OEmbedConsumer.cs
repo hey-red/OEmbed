@@ -72,12 +72,19 @@ namespace HeyRed.OEmbed
             }
         }
 
+        private static void GuardAgainstInvalidUri(Uri uri)
+        {
+            if (!UrlHelpers.IsValidUri(uri))
+            {
+                throw new ArgumentException("The request uri should be well-formed and starts with http:// or https://");
+            }
+        }
+
         /// <summary>
         /// Makes request to specific url and deserialize response.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="requestUrl"></param>
-        /// <returns></returns>
         private async Task<T?> DoRequestAsync<T>(string requestUrl, CancellationToken cancellationToken) where T : Base
         {
             using var response = await _httpClient.GetAsync(requestUrl, cancellationToken);
@@ -140,7 +147,7 @@ namespace HeyRed.OEmbed
             CancellationToken cancellationToken = default)
             where T : Base
         {
-            if (!UrlHelpers.IsValidUri(uri)) return null;
+            GuardAgainstInvalidUri(uri);
 
             OEmbedProviderInfo? providerInfo = _providerRegistry.GetProvider(uri);
             if (providerInfo is not null)
@@ -193,7 +200,7 @@ namespace HeyRed.OEmbed
             int? maxHeight = null,
             CancellationToken cancellationToken = default)
         {
-            if (!UrlHelpers.IsValidUri(uri)) return null;
+            GuardAgainstInvalidUri(uri);
 
             OEmbedProviderInfo? providerInfo = _providerRegistry.GetProvider(uri);
             if (providerInfo is not null)
