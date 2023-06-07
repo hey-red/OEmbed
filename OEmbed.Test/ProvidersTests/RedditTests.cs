@@ -43,7 +43,7 @@
             // Rich type values
             Assert.NotNull(result.Html);
             Assert.Null(result.Width);
-            Assert.Null(result.Height);
+            Assert.NotNull(result.Height);
 
             _output.WriteLine(result?.AuthorName);
             _output.WriteLine(result?.Title);
