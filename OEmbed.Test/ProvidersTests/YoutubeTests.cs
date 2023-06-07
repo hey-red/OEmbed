@@ -20,6 +20,7 @@ namespace OEmbed.Test.ProvidersTests
         [InlineData("http://youtu.be/LKWFkELeYwc")]
         [InlineData("https://www.youtu.be/LKWFkELeYwc")]
         [InlineData("https://youtu.be/LKWFkE-LeYwc")]
+        [InlineData("https://youtu.be/ZQKdayVotaI?list=RDS_Q-fOj9Mho")]
         [InlineData("https://www.youtube.com/watch?v=LKWFkELeYwc")]
         [InlineData("https://www.youtube.com/embed/LKWFkELeYwc?autoplay=1")]
         [InlineData("https://m.youtube.com/watch?v=LKWFkELeYwc&feature=youtu.be")]
