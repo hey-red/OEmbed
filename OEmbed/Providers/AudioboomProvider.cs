@@ -10,7 +10,7 @@ namespace HeyRed.OEmbed.Providers
 
             AddScheme(
                 matcher: new RegexMatcher(@"/(?:channel|posts)/([\w-]+)/?"),
-                apiEndpoint: "https://audioboom.com/publishing/oembed/v4.json",
+                apiEndpoint: "https://audioboom.com/publishing/oembed.json",
                 resourceType: ResourceType.Rich);
         }
     }
