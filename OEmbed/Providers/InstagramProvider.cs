@@ -29,7 +29,7 @@ namespace HeyRed.OEmbed.Providers
                         /(?:[\w_\-]+/)?
                         (?:p/|tv/|reel/)?([a-zA-Z0-9_-]+)/?
                         (?:[\w?#&=]+)?"),
-                apiEndpoint: "https://graph.facebook.com/v13.0/instagram_oembed",
+                apiEndpoint: "https://graph.facebook.com/v18.0/instagram_oembed",
                 resourceType: ResourceType.Rich);
         }
     }
