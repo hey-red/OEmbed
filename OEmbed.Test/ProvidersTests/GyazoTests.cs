@@ -32,7 +32,7 @@
             Assert.NotNull(result);
             Assert.Equal("photo", result!.Type);
             Assert.Equal("1.0", result.Version);
-            Assert.Null(result.Title);
+            Assert.NotNull(result.Title);
             Assert.Null(result.AuthorName);
             Assert.Null(result.AuthorUrl);
             Assert.NotNull(result.ProviderName);
