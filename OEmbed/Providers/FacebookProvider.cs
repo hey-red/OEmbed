@@ -39,7 +39,7 @@ namespace HeyRed.OEmbed.Providers
                      * https://www.facebook.com/media/set?set={set-id}
                      */
                     @"/(?:photos/|questions/|media/set\?set=)(?:[^/]+)/?"),
-                apiEndpoint: "https://graph.facebook.com/v13.0/oembed_post",
+                apiEndpoint: "https://graph.facebook.com/v18.0/oembed_post",
                 resourceType: ResourceType.Rich);
 
             // VIDEO
@@ -56,7 +56,7 @@ namespace HeyRed.OEmbed.Providers
                      * https://www.facebook.com/video.php?v={video-id}
                      */
                     @"/video\.php\?(?:id|v)=([\d]+)/?"),
-                apiEndpoint: "https://graph.facebook.com/v13.0/oembed_video",
+                apiEndpoint: "https://graph.facebook.com/v18.0/oembed_video",
                 resourceType: ResourceType.Video);
 
             /*
@@ -66,7 +66,7 @@ namespace HeyRed.OEmbed.Providers
              */
             AddScheme(
                 matcher: new RegexMatcher(@"/([a-zA-Z0-9\.-]+)/?"),
-                apiEndpoint: "https://graph.facebook.com/v13.0/oembed_page",
+                apiEndpoint: "https://graph.facebook.com/v18.0/oembed_page",
                 resourceType: ResourceType.Rich);
         }
     }
