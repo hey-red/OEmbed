@@ -31,7 +31,6 @@ By default it's register all providers listed below:
 * CoubProvider
 * DeviantartProvider
 * FlickrProvider
-* GfycatProvider
 * GiphyProvider
 * GyazoProvider
 * ImgurProvider
