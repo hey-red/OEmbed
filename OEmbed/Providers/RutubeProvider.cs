@@ -12,7 +12,7 @@ namespace HeyRed.OEmbed.Providers
             });
 
             AddScheme(
-                matcher: new RegexMatcher("/video/([a-zA-Z0-9]+)/"),
+                matcher: new RegexMatcher("/video/([a-zA-Z0-9]+)/?(?:.*)"),
                 apiEndpoint: "https://rutube.ru/api/oembed/",
                 resourceType: ResourceType.Video);
         }

@@ -17,6 +17,9 @@
 
         [Theory]
         [InlineData("https://rutube.ru/video/755ec2d4b19d2374d6c78890dbaad7fe/")]
+        [InlineData("https://rutube.ru/video/755ec2d4b19d2374d6c78890dbaad7fe")]
+        [InlineData("https://rutube.ru/video/755ec2d4b19d2374d6c78890dbaad7fe/?t=216&r=plwd")]
+        [InlineData("https://rutube.ru/video/60cc1d3c24a71ab239e0e276fa4754ff/?playlist=329841")]
         public void UrlMatchTest(string url)
         {
             TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
@@ -29,7 +32,7 @@
 
             Assert.NotNull(result);
             Assert.Equal("video", result!.Type);
-            Assert.Equal("1", result.Version); // Spec violation
+            Assert.Equal("1.0", result.Version);
             Assert.NotNull(result.Title);
             Assert.NotNull(result.AuthorName);
             Assert.NotNull(result.AuthorUrl);
