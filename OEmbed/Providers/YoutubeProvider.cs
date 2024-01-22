@@ -15,7 +15,8 @@ namespace HeyRed.OEmbed.Providers
                 "youtu.be",
                 "youtube.com",
                 "www.youtu.be",
-                "www.youtube.com"
+                "www.youtube.com",
+                "music.youtube.com"
             });
 
             AddScheme(
