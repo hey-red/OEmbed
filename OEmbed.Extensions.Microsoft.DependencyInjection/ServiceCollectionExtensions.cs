@@ -32,7 +32,6 @@ namespace HeyRed.OEmbed
             builder.AddProvider<CoubProvider>();
             builder.AddProvider<DeviantartProvider>();
             builder.AddProvider<FlickrProvider>();
-            builder.AddProvider<GfycatProvider>();
             builder.AddProvider<GiphyProvider>();
             builder.AddProvider<GyazoProvider>();
             builder.AddProvider<ImgurProvider>();
