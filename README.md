@@ -109,10 +109,10 @@ The result object is are similar to described [in the spec](https://oembed.com/#
 Models:
 [Base](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Models/Base.cs), [Link](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Models/Link.cs), [Photo](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Models/Photo.cs), [Rich](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Models/Rich.cs), [Video](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Models/Video.cs)
 
-If you dont know which response models supported by provider, then use dynamic overload:
+Basic request:
 ```C#
 // Deserialize response based on provider preferences
-dynamic? item = await _oEmbedConsumer.RequestAsync(url);
+var item = await _oEmbedConsumer.RequestAsync(url);
 
 if (item is not null)
 {

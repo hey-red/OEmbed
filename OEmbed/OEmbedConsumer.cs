@@ -194,7 +194,7 @@ namespace HeyRed.OEmbed
         /// <param name="maxHeight"></param>
         /// <returns>returns dynamic or null if provider not found for given url.</returns>
         /// <remarks>Use this method if you don't know type of resource response.</remarks>
-        public async Task<dynamic?> RequestAsync(
+        public async Task<Base?> RequestAsync(
             Uri uri,
             int? maxWidth = null,
             int? maxHeight = null,
@@ -230,7 +230,7 @@ namespace HeyRed.OEmbed
         /// <param name="maxHeight"></param>
         /// <returns>returns <see cref="Base"/> or null if provider not found for given url.</returns>
         /// <remarks>Use this method if you don't know type of resource response.</remarks>
-        public async Task<dynamic?> RequestAsync(
+        public async Task<Base?> RequestAsync(
             string url,
             int? maxWidth = null,
             int? maxHeight = null,

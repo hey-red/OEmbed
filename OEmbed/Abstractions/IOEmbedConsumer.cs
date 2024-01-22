@@ -30,13 +30,13 @@ namespace HeyRed.OEmbed.Abstractions
             CancellationToken cancellationToken = default)
             where T : Base;
 
-        Task<dynamic?> RequestAsync(
+        Task<Base?> RequestAsync(
             Uri uri,
             int? maxWidth = null,
             int? maxHeight = null,
             CancellationToken cancellationToken = default);
 
-        Task<dynamic?> RequestAsync(
+        Task<Base?> RequestAsync(
             string url,
             int? maxWidth = null,
             int? maxHeight = null,
