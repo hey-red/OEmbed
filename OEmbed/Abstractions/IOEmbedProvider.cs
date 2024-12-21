@@ -14,5 +14,7 @@ namespace HeyRed.OEmbed.Abstractions
         ProviderScheme? MatchScheme(Uri uri);
 
         IEnumerable<KeyValuePair<string, string?>> Parameters { get; }
+
+        Func<Uri, Uri>? PreProcessUrl { get; set; }
     }
 }

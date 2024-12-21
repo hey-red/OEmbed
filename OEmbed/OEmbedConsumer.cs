@@ -152,7 +152,7 @@ namespace HeyRed.OEmbed
             OEmbedProviderInfo? providerInfo = _providerRegistry.GetProvider(uri);
             if (providerInfo is not null)
             {
-                var consumerRequest = new OEmbedConsumerRequest(uri, providerInfo.ResponseFormat, maxWidth, maxHeight);
+                var consumerRequest = new OEmbedConsumerRequest(providerInfo.UrlPreProcessor?.Invoke(uri) ?? uri, providerInfo.ResponseFormat, maxWidth, maxHeight);
 
                 return await RequestAsync<T>(
                     providerInfo.Scheme.Endpoint,
@@ -205,7 +205,10 @@ namespace HeyRed.OEmbed
             OEmbedProviderInfo? providerInfo = _providerRegistry.GetProvider(uri);
             if (providerInfo is not null)
             {
-                var consumerRequest = new OEmbedConsumerRequest(uri, providerInfo.ResponseFormat, maxWidth, maxHeight);
+                var consumerRequest = new OEmbedConsumerRequest(
+                    providerInfo.UrlPreProcessor?.Invoke(uri) ?? uri, providerInfo.ResponseFormat, 
+                    maxWidth, 
+                    maxHeight);
 
                 ProviderScheme scheme = providerInfo.Scheme;
 

@@ -52,5 +52,7 @@ namespace HeyRed.OEmbed.Providers.Common
         public virtual ResponseFormat Format => ResponseFormat.Json;
 
         public IEnumerable<KeyValuePair<string, string?>> Parameters => _parameters;
+        
+        public Func<Uri, Uri>? PreProcessUrl { get; set; }
     }
 }
