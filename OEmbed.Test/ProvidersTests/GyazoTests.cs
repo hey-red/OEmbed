@@ -25,7 +25,7 @@
         }
 
         [Fact]
-        public async void RequestTest()
+        public async Task RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Photo>("https://gyazo.com/c86f9566d5fd2904b2929ad4b67347c7");
 

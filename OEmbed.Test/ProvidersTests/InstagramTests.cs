@@ -43,7 +43,7 @@ namespace OEmbed.Test.ProvidersTests
         }
 
         [Fact]
-        public async void RequestTest()
+        public async Task RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Rich>("https://www.instagr.am/dlwlrma/tv/CbKjea_ARNB/");
 
@@ -68,7 +68,7 @@ namespace OEmbed.Test.ProvidersTests
         }
 
         [Fact]
-        public async void ProfileRequestTest()
+        public async Task ProfileRequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Rich>("https://www.instagram.com/dlwlrma/");
 

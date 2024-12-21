@@ -24,7 +24,7 @@
         }
 
         [Fact]
-        public async void RequestTest()
+        public async Task RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Rich>("https://www.pixiv.net/en/artworks/90137533");
 

@@ -41,7 +41,7 @@ namespace OEmbed.Test.ProvidersTests
         }
 
         [Fact]
-        public async void PostRequestTest()
+        public async Task PostRequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Rich>("https://www.facebook.com/iu.loen/posts/501755841318628");
 
@@ -67,7 +67,7 @@ namespace OEmbed.Test.ProvidersTests
         }
 
         [Fact]
-        public async void VideoRequestTest()
+        public async Task VideoRequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Video>("https://www.facebook.com/iu.loen/videos/537284977236313");
 
@@ -93,7 +93,7 @@ namespace OEmbed.Test.ProvidersTests
         }
 
         [Fact]
-        public async void PageRequestTest()
+        public async Task PageRequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Rich>("https://www.facebook.com/iu.loen");
 

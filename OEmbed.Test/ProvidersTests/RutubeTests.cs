@@ -26,7 +26,7 @@
         }
 
         [Fact]
-        public async void RequestVideoTest()
+        public async Task RequestVideoTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Video>("https://rutube.ru/video/755ec2d4b19d2374d6c78890dbaad7fe/");
 

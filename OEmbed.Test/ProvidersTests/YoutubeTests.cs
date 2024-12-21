@@ -40,7 +40,7 @@ namespace OEmbed.Test.ProvidersTests
         }
 
         [Fact]
-        public async void RequestTest()
+        public async Task RequestTest()
         {
             Video? result = await _oEmbedConsumer.RequestAsync<Video>("https://www.youtube.com/watch?v=LKWFkELeYwc");
 

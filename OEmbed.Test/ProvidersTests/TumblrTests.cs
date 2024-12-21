@@ -24,7 +24,7 @@
         }
 
         [Fact]
-        public async void RequestTest()
+        public async Task RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Rich>("https://02vin.tumblr.com/post/679391156826701824/01-07-2022");
 

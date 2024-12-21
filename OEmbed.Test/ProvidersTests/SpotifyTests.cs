@@ -29,7 +29,7 @@
         }
 
         [Fact]
-        public async void RequestTest()
+        public async Task RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Rich>("https://open.spotify.com/artist/3HqSLMAZ3g3d5poNaI7GOU");
 

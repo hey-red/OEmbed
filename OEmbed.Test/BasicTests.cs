@@ -3,7 +3,7 @@
     public class BasicTests
     {
         [Fact]
-        public async void SuccessVideoRequestTest()
+        public async Task SuccessVideoRequestTest()
         {
             var provider = new YoutubeProvider();
             var consumer = TestHelpers.BuildConsumer(new[] { provider }, withCache: false);
@@ -14,7 +14,7 @@
         }
 
         [Fact]
-        public async void NotFoundRequestWithCacheTest()
+        public async Task NotFoundRequestWithCacheTest()
         {
             var provider = new CoubProvider();
             var consumer = TestHelpers.BuildConsumer(new[] { provider }, withCache: true);
@@ -23,7 +23,7 @@
         }
 
         [Fact]
-        public async void NotFoundRequestWithoutCacheTest()
+        public async Task NotFoundRequestWithoutCacheTest()
         {
             var provider = new CoubProvider();
             var consumer = TestHelpers.BuildConsumer(new[] { provider }, withCache: false);

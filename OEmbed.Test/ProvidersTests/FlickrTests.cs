@@ -28,7 +28,7 @@
         }
 
         [Fact]
-        public async void RequestPhotoTest()
+        public async Task RequestPhotoTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Photo>("https://www.flickr.com/photos/lucian-f/49267518876/in/album-72157712341359412/");
 
@@ -54,7 +54,7 @@
         }
 
         [Fact]
-        public async void RequestAlbumTest()
+        public async Task RequestAlbumTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Rich>("https://www.flickr.com/photos/lucian-f/albums/72157712341359412");
 

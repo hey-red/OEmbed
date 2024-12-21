@@ -24,7 +24,7 @@
         }
 
         [Fact]
-        public async void RequestTest()
+        public async Task RequestTest()
         {
             Video? result = await _oEmbedConsumer.RequestAsync<Video>("https://coub.com/view/utw6y");
 

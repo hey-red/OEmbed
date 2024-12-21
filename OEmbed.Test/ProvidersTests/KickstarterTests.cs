@@ -23,9 +23,9 @@
         }
 
         [Fact]
-        public async void RequestTest()
+        public async Task RequestTest()
         {
-            var result = await _oEmbedConsumer.RequestAsync<Rich>("https://www.kickstarter.com/projects/brentonlengel/snow-white-zombie-apocalypse-volume-1?ref=section-comics-illustration-featured-project");
+            var result = await _oEmbedConsumer.RequestAsync<Rich>("https://www.kickstarter.com/projects/tekuho/tekuart-book-v4-compilation");
 
             Assert.NotNull(result);
             Assert.Equal("rich", result!.Type);

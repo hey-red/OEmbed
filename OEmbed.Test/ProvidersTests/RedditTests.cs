@@ -24,7 +24,7 @@
         }
 
         [Fact]
-        public async void RequestTest()
+        public async Task RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Rich>("https://www.reddit.com/r/SoulsSliders/comments/t7bsvp/someone_requested_kristen_ritter_figured_id_post/");
 

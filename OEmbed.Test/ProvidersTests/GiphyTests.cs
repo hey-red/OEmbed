@@ -29,7 +29,7 @@
         }
 
         [Fact]
-        public async void RequestTest()
+        public async Task RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Photo>("https://giphy.com/gifs/confused-iu-looking-up-l2YWwjl8T5tdGiaf6");
 
@@ -55,7 +55,7 @@
         }
 
         [Fact]
-        public async void DynamicResponseTest()
+        public async Task DynamicResponseTest()
         {
             var result = await _oEmbedConsumer.RequestAsync("https://giphy.com/clips/kpop-k-pop-red-velvet-UWq9DlocbqoIal7N7I");
 

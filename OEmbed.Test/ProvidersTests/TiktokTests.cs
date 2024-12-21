@@ -26,7 +26,7 @@
         }
 
         [Fact]
-        public async void RequestVideoTest()
+        public async Task RequestVideoTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Video>("https://www.tiktok.com/@_sof7a_/video/7070457549543329026");
 
@@ -52,7 +52,7 @@
         }
 
         [Fact]
-        public async void RequestProfileTest()
+        public async Task RequestProfileTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Rich>("https://www.tiktok.com/@_sof7a_");
 

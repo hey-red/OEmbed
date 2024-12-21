@@ -13,7 +13,7 @@
         }
 
         [Fact]
-        public async void GetAsyncNullTest()
+        public async Task GetAsyncNullTest()
         {
             var cache = new DefaultCache();
             var key = _cacheKey.CreateKey("https://www.youtube.com/watch?v=D1PvIWdJ8xo");
@@ -24,7 +24,7 @@
         }
 
         [Fact]
-        public async void GetSetAsyncValueTest()
+        public async Task GetSetAsyncValueTest()
         {
             var cache = new DefaultCache();
             var key = _cacheKey.CreateKey("https://www.youtube.com/watch?v=D1PvIWdJ8xo");
@@ -37,7 +37,7 @@
         }
 
         [Fact]
-        public async void AddOrGetExistingAsyncTest()
+        public async Task AddOrGetExistingAsyncTest()
         {
             var cache = new DefaultCache();
 
@@ -57,7 +57,7 @@
         }
 
         [Fact]
-        public async void AddOrGetExistingAsyncNullTest()
+        public async Task AddOrGetExistingAsyncNullTest()
         {
             var cache = new DefaultCache();
 
@@ -73,7 +73,7 @@
         }
 
         [Fact]
-        public async void MultiThreadingTest()
+        public async Task MultiThreadingTest()
         {
             var cache = new DefaultCache();
 

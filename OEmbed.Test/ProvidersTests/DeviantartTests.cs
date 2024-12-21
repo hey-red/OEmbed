@@ -25,7 +25,7 @@
         }
 
         [Fact]
-        public async void RequestTest()
+        public async Task RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Photo>("https://www.deviantart.com/wlop/art/Sunshine2-905829772");
 

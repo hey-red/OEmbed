@@ -37,7 +37,7 @@
         }
 
         [Fact]
-        public async void RequestTest()
+        public async Task RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Rich>("https://i.imgur.com/aCRnwiC.jpeg");
 

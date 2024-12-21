@@ -30,7 +30,7 @@
         }
 
         [Fact]
-        public async void LikesRequestTest()
+        public async Task LikesRequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Rich>("https://twitter.com/N_I_X_E_U/likes", maxWidth: 400);
 
@@ -58,7 +58,7 @@
         }
 
         [Fact]
-        public async void RequestTest()
+        public async Task RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Rich>("https://twitter.com/panpianoatelier/status/1500450869590241286?s=20&t=piEth1McNILTUdD9Tf-48w", maxWidth: 400);
 
@@ -86,7 +86,7 @@
         }
 
         [Fact]
-        public async void RequestWithAdditionalParametersTest()
+        public async Task RequestWithAdditionalParametersTest()
         {
             var provider = new TwitterProvider(new()
             {

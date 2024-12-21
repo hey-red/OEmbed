@@ -25,7 +25,7 @@
         }
 
         [Fact]
-        public async void RequestTest()
+        public async Task RequestTest()
         {
             var result = await _oEmbedConsumer.RequestAsync<Rich>("https://music.yandex.ru/album/21260060/track/101006830");
 

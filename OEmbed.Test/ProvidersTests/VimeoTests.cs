@@ -29,7 +29,7 @@
         }
 
         [Fact]
-        public async void RequestTest()
+        public async Task RequestTest()
         {
             Video? result = await _oEmbedConsumer.RequestAsync<Video>("https://vimeo.com/22439234");
 

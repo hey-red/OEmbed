@@ -25,7 +25,7 @@
         }
 
         [Fact]
-        public async void RequestTest()
+        private async Task RequestTest()
         {
             Video? result = await _oEmbedConsumer.RequestAsync<Video>("https://vod.afreecatv.com/player/83325433");
 
