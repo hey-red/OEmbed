@@ -7,15 +7,13 @@ using System.Text.Json.Serialization;
 using HeyRed.OEmbed.Abstractions;
 using HeyRed.OEmbed.Models;
 
-using Yoh.Text.Json.NamingPolicies;
-
 namespace HeyRed.OEmbed.Defaults
 {
     public class DefaultJsonSerializer : IJsonSerializer
     {
         private static readonly JsonSerializerOptions serializerOptions = new()
         {
-            PropertyNamingPolicy = JsonNamingPolicies.SnakeCaseLower,
+            PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
             NumberHandling = JsonNumberHandling.AllowReadingFromString,
             Converters =
             {

@@ -24,7 +24,6 @@
     <PackageReference Include="NeoSmart.Synchronization" Version="2.0.0" />
     <PackageReference Include="System.Runtime.Caching" Version="8.0.1" />
     <PackageReference Include="U8XmlParser" Version="1.6.1" />
-    <PackageReference Include="Yoh.Text.Json.NamingPolicies" Version="1.1.2" />
   </ItemGroup>
 
   <ItemGroup>
