@@ -12,12 +12,12 @@ namespace HeyRed.OEmbed.Providers
         {
             AddParameters(options?.Parameters);
 
-            AddAllowedHosts(new[]
-            {
+            AddAllowedHosts([
                 "twitter.com",
                 "www.twitter.com",
-                "mobile.twitter.com"
-            });
+                "mobile.twitter.com",
+                "x.com"
+            ]);
 
             // Statuses
             AddScheme(

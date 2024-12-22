@@ -24,6 +24,7 @@
         [InlineData("https://twitter.com/N_I_X_E_U")]
         [InlineData("https://twitter.com/N_I_X_E_U/likes")]
         [InlineData("https://twitter.com/i/lists/811600711968575488")]
+        [InlineData("https://x.com/Kuvshinov_Ilya/status/1569356877896777734")]
         public void UrlMatchTest(string url)
         {
             TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
@@ -32,7 +33,7 @@
         [Fact]
         public async Task LikesRequestTest()
         {
-            var result = await _oEmbedConsumer.RequestAsync<Rich>("https://twitter.com/N_I_X_E_U/likes", maxWidth: 400);
+            var result = await _oEmbedConsumer.RequestAsync<Rich>("https://x.com/norafawn/likes", maxWidth: 400);
 
             Assert.NotNull(result);
             Assert.Equal("rich", result!.Type);
@@ -60,7 +61,7 @@
         [Fact]
         public async Task RequestTest()
         {
-            var result = await _oEmbedConsumer.RequestAsync<Rich>("https://twitter.com/panpianoatelier/status/1500450869590241286?s=20&t=piEth1McNILTUdD9Tf-48w", maxWidth: 400);
+            var result = await _oEmbedConsumer.RequestAsync<Rich>("https://x.com/Kuvshinov_Ilya/status/1569356877896777734", maxWidth: 400);
 
             Assert.NotNull(result);
             Assert.Equal("rich", result!.Type);
@@ -97,7 +98,7 @@
             });
 
             var consumer = TestHelpers.BuildConsumer(new[] { provider });
-            var result = await consumer.RequestAsync<Rich>("https://twitter.com/panpianoatelier/status/1500450869590241286");
+            var result = await consumer.RequestAsync<Rich>("https://x.com/xenotrip/status/1870121994617856497");
 
             Assert.NotNull(result);
             Assert.Contains("data-theme=\"dark\"", result!.Html);
