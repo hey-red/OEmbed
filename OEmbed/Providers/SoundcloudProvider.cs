@@ -6,7 +6,7 @@ namespace HeyRed.OEmbed.Providers
     {
         public SoundcloudProvider()
         {
-            AddAllowedHosts(new[] { "soundcloud.com" });
+            AddAllowedHosts(new[] { "soundcloud.com", "on.soundcloud.com" });
 
             AddScheme(
                 matcher: new RegexMatcher(@"/(?!discover|stream|upload|popular|charts|people|pages|imprint|you)([\S]+)"),

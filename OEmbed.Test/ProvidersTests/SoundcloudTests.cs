@@ -19,6 +19,7 @@
         [InlineData("https://soundcloud.com/blackpinkofficial")]
         [InlineData("https://soundcloud.com/blackpinkofficial/whistle")]
         [InlineData("https://soundcloud.com/blackpinkofficial?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing")]
+        [InlineData("https://on.soundcloud.com/182FhBVB9aLTZEuQ8")]
         public void UrlMatchTest(string url)
         {
             TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
