@@ -19,6 +19,7 @@
         [InlineData("https://vod.afreecatv.com/player/83325433")]
         [InlineData("https://play.afreecatv.com/whalsrud0217/239656993")]
         [InlineData("https://vod.afreecatv.com/PLAYER/STATION/84006619")]
+        [InlineData("https://vod.sooplive.co.kr/player/159661333")]
         public void UrlMatchTest(string url)
         {
             TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);

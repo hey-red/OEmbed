@@ -13,7 +13,9 @@ namespace HeyRed.OEmbed.Providers
                 "vod.afreecatv.com",
                 "play.afreecatv.com",
                 "vod.afree.ca",
-                "play.afree.ca"
+                "play.afree.ca",
+                "vod.sooplive.co.kr",
+                "play.sooplive.co.kr",
             });
 
             AddScheme(
