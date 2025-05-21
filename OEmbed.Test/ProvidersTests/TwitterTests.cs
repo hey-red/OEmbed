@@ -98,7 +98,7 @@
             });
 
             var consumer = TestHelpers.BuildConsumer(new[] { provider });
-            var result = await consumer.RequestAsync<Rich>("https://x.com/xenotrip/status/1870121994617856497");
+            var result = await consumer.RequestAsync<Rich>("https://x.com/Kuvshinov_Ilya/status/1569356877896777734");
 
             Assert.NotNull(result);
             Assert.Contains("data-theme=\"dark\"", result!.Html);
