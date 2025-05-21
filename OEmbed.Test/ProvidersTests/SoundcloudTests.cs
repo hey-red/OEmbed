@@ -28,6 +28,7 @@
         [Theory]
         [InlineData("https://soundcloud.com/discover")]
         [InlineData("https://soundcloud.com/upload")]
+        [InlineData("https://soundcloud.com/you/library")]
         public void UrlShouldNotMatchTest(string url)
         {
             TestHelpers.UrlShouldNotMatchTest(_oEmbedProvider, url);
