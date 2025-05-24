@@ -1,28 +1,28 @@
 ﻿using System;
+
 using HeyRed.OEmbed.Providers.Common;
 
-namespace HeyRed.OEmbed.Providers
+namespace HeyRed.OEmbed.Providers;
+
+public record RutubeProvider : ProviderBase
 {
-    public record RutubeProvider : ProviderBase
+    public RutubeProvider()
     {
-        public RutubeProvider()
+        AddAllowedHosts(new[]
         {
-            AddAllowedHosts(new[]
-            {
-                "rutube.ru",
-            });
+            "rutube.ru"
+        });
 
-            AddScheme(
-                matcher: new RegexMatcher("/(?:video|shorts)/([a-zA-Z0-9]+)/?(?:.*)"),
-                apiEndpoint: "https://rutube.ru/api/oembed/",
-                resourceType: ResourceType.Video);
+        AddScheme(
+            new RegexMatcher("/(?:video|shorts)/([a-zA-Z0-9]+)/?(?:.*)"),
+            "https://rutube.ru/api/oembed/",
+            ResourceType.Video);
 
-            PreProcessUrl = uri =>
-            {
-                var builder = new UriBuilder(uri);
-                builder.Path = builder.Path.Replace("shorts", "video");
-                return builder.Uri;
-            };
-        }
+        PreProcessUrl = uri =>
+        {
+            var builder = new UriBuilder(uri);
+            builder.Path = builder.Path.Replace("shorts", "video");
+            return builder.Uri;
+        };
     }
 }

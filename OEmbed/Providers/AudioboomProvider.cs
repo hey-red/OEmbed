@@ -1,17 +1,16 @@
 ﻿using HeyRed.OEmbed.Providers.Common;
 
-namespace HeyRed.OEmbed.Providers
-{
-    public record AudioboomProvider : ProviderBase
-    {
-        public AudioboomProvider()
-        {
-            AddAllowedHosts(new[] { "audioboom.com" });
+namespace HeyRed.OEmbed.Providers;
 
-            AddScheme(
-                matcher: new RegexMatcher(@"/(?:channel|posts)/([\w-]+)/?"),
-                apiEndpoint: "https://audioboom.com/publishing/oembed.json",
-                resourceType: ResourceType.Rich);
-        }
+public record AudioboomProvider : ProviderBase
+{
+    public AudioboomProvider()
+    {
+        AddAllowedHosts(new[] { "audioboom.com" });
+
+        AddScheme(
+            new RegexMatcher(@"/(?:channel|posts)/([\w-]+)/?"),
+            "https://audioboom.com/publishing/oembed.json",
+            ResourceType.Rich);
     }
 }

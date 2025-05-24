@@ -3,20 +3,22 @@ using System.Linq;
 
 using HeyRed.OEmbed.Providers.Common;
 
-namespace HeyRed.OEmbed.Providers
+namespace HeyRed.OEmbed.Providers;
+
+public record TumblrProvider : ProviderBase
 {
-    public record TumblrProvider : ProviderBase
+    public TumblrProvider()
     {
-        public TumblrProvider()
-        {
-            AddAllowedHosts(new[] { "tumblr.com" });
+        AddAllowedHosts(new[] { "tumblr.com" });
 
-            AddScheme(
-                matcher: new RegexMatcher(@"/post/(\d+)/?(?:\S+)?"),
-                apiEndpoint: "https://www.tumblr.com/oembed/1.0",
-                resourceType: ResourceType.Rich);
-        }
+        AddScheme(
+            new RegexMatcher(@"/post/(\d+)/?(?:\S+)?"),
+            "https://www.tumblr.com/oembed/1.0",
+            ResourceType.Rich);
+    }
 
-        public override bool CanProcess(Uri uri) => _allowedHosts.Any(host => uri.Host.Contains(host));
+    public override bool CanProcess(Uri uri)
+    {
+        return _allowedHosts.Any(host => uri.Host.Contains(host));
     }
 }

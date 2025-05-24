@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace HeyRed.OEmbed.Providers.Common
+namespace HeyRed.OEmbed.Providers.Common;
+
+public class ProviderOptions
 {
-    public class ProviderOptions
-    {
-        public IEnumerable<KeyValuePair<string, string?>>? Parameters { get; set; } = default;
-    }
+    public IEnumerable<KeyValuePair<string, string?>>? Parameters { get; set; } = default;
 }

@@ -1,29 +1,28 @@
 ﻿using HeyRed.OEmbed.Providers.Common;
 
-namespace HeyRed.OEmbed.Providers
+namespace HeyRed.OEmbed.Providers;
+
+public record GiphyProvider : ProviderBase
 {
-    public record GiphyProvider : ProviderBase
+    public GiphyProvider()
     {
-        public GiphyProvider()
+        AddAllowedHosts(new[]
         {
-            AddAllowedHosts(new[]
-            {
-                "giphy.com",
-                "www.giphy.com",
-                "media.giphy.com",
-            });
+            "giphy.com",
+            "www.giphy.com",
+            "media.giphy.com"
+        });
 
-            // Gifs, stickers, media, embed
-            AddScheme(
-                matcher: new RegexMatcher(@"/(?:gifs|stickers|media|embed)/([\S]+)"),
-                apiEndpoint: "https://giphy.com/services/oembed",
-                resourceType: ResourceType.Photo);
+        // Gifs, stickers, media, embed
+        AddScheme(
+            new RegexMatcher(@"/(?:gifs|stickers|media|embed)/([\S]+)"),
+            "https://giphy.com/services/oembed",
+            ResourceType.Photo);
 
-            // Clips
-            AddScheme(
-                matcher: new RegexMatcher(@"/clips/([\S]+)"),
-                apiEndpoint: "https://giphy.com/services/oembed",
-                resourceType: ResourceType.Video);
-        }
+        // Clips
+        AddScheme(
+            new RegexMatcher(@"/clips/([\S]+)"),
+            "https://giphy.com/services/oembed",
+            ResourceType.Video);
     }
 }

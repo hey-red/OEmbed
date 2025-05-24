@@ -5,41 +5,40 @@ using System.Threading.Tasks;
 
 using HeyRed.OEmbed.Models;
 
-namespace HeyRed.OEmbed.Abstractions
+namespace HeyRed.OEmbed.Abstractions;
+
+public interface IOEmbedConsumer
 {
-    public interface IOEmbedConsumer
-    {
-        Task<T?> RequestAsync<T>(
-            Uri apiEndpoint,
-            IOEmbedConsumerRequest request,
-            IEnumerable<KeyValuePair<string, string?>>? parameters = default,
-            CancellationToken cancellationToken = default)
-            where T : Base;
+    Task<T?> RequestAsync<T>(
+        Uri apiEndpoint,
+        IOEmbedConsumerRequest request,
+        IEnumerable<KeyValuePair<string, string?>>? parameters = default,
+        CancellationToken cancellationToken = default)
+        where T : Base;
 
-        Task<T?> RequestAsync<T>(
-            Uri uri,
-            int? maxWidth = null,
-            int? maxHeight = null,
-            CancellationToken cancellationToken = default)
-            where T : Base;
+    Task<T?> RequestAsync<T>(
+        Uri uri,
+        int? maxWidth = null,
+        int? maxHeight = null,
+        CancellationToken cancellationToken = default)
+        where T : Base;
 
-        Task<T?> RequestAsync<T>(
-            string url,
-            int? maxWidth = null,
-            int? maxHeight = null,
-            CancellationToken cancellationToken = default)
-            where T : Base;
+    Task<T?> RequestAsync<T>(
+        string url,
+        int? maxWidth = null,
+        int? maxHeight = null,
+        CancellationToken cancellationToken = default)
+        where T : Base;
 
-        Task<Base?> RequestAsync(
-            Uri uri,
-            int? maxWidth = null,
-            int? maxHeight = null,
-            CancellationToken cancellationToken = default);
+    Task<Base?> RequestAsync(
+        Uri uri,
+        int? maxWidth = null,
+        int? maxHeight = null,
+        CancellationToken cancellationToken = default);
 
-        Task<Base?> RequestAsync(
-            string url,
-            int? maxWidth = null,
-            int? maxHeight = null,
-            CancellationToken cancellationToken = default);
-    }
+    Task<Base?> RequestAsync(
+        string url,
+        int? maxWidth = null,
+        int? maxHeight = null,
+        CancellationToken cancellationToken = default);
 }

@@ -1,8 +1,7 @@
-﻿namespace HeyRed.OEmbed
+﻿namespace HeyRed.OEmbed;
+
+public enum ResponseFormat
 {
-    public enum ResponseFormat
-    {
-        Json,
-        Xml
-    }
+    Json,
+    Xml
 }

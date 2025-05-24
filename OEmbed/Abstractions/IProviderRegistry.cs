@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace HeyRed.OEmbed.Abstractions
-{
-    public interface IProviderRegistry
-    {
-        OEmbedProviderInfo? GetProvider(Uri uri);
+namespace HeyRed.OEmbed.Abstractions;
 
-        OEmbedProviderInfo? GetProvider(string url);
-    }
+public interface IProviderRegistry
+{
+    OEmbedProviderInfo? GetProvider(Uri uri);
+
+    OEmbedProviderInfo? GetProvider(string url);
 }

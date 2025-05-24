@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace HeyRed.OEmbed
+namespace HeyRed.OEmbed;
+
+public interface IOEmbedBuilder
 {
-    public interface IOEmbedBuilder
-    {
-        IServiceCollection Services { get; }
-    }
+    IServiceCollection Services { get; }
 }

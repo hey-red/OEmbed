@@ -1,7 +1,6 @@
-﻿namespace HeyRed.OEmbed.Abstractions
+﻿namespace HeyRed.OEmbed.Abstractions;
+
+public interface ICacheKey
 {
-    public interface ICacheKey
-    {
-        string CreateKey(string url);
-    }
+    string CreateKey(string url);
 }

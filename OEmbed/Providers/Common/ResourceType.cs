@@ -1,11 +1,10 @@
-﻿namespace HeyRed.OEmbed.Providers.Common
+﻿namespace HeyRed.OEmbed.Providers.Common;
+
+public enum ResourceType
 {
-    public enum ResourceType
-    {
-        Base = 0,
-        Video,
-        Photo,
-        Rich,
-        Link
-    }
+    Base = 0,
+    Video,
+    Photo,
+    Rich,
+    Link
 }

@@ -1,7 +1,6 @@
-﻿namespace OEmbed.Test
+﻿namespace OEmbed.Test;
+
+public class Secrets
 {
-    public class Secrets
-    {
-        public string? MetaAccessToken { get; set; }
-    }
+    public string? MetaAccessToken { get; set; }
 }

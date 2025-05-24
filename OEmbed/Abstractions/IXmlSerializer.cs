@@ -1,6 +1,5 @@
-﻿namespace HeyRed.OEmbed.Abstractions
+﻿namespace HeyRed.OEmbed.Abstractions;
+
+public interface IXmlSerializer : ISerializer
 {
-    public interface IXmlSerializer : ISerializer
-    {
-    }
 }

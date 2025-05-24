@@ -1,54 +1,54 @@
-﻿namespace OEmbed.Test.ProvidersTests
+﻿namespace OEmbed.Test.ProvidersTests;
+
+public class TumblrTests
 {
-    public class TumblrTests
+    private readonly IOEmbedConsumer _oEmbedConsumer;
+
+    private readonly IOEmbedProvider _oEmbedProvider;
+    private readonly ITestOutputHelper _output;
+
+    public TumblrTests(ITestOutputHelper output)
     {
-        private readonly ITestOutputHelper _output;
+        _output = output;
+        _oEmbedProvider = new TumblrProvider();
+        _oEmbedConsumer = TestHelpers.BuildConsumer(new[] { _oEmbedProvider });
+    }
 
-        private readonly IOEmbedProvider _oEmbedProvider;
+    [Theory]
+    [InlineData("https://02vin.tumblr.com/post/679391156826701824/01-07-2022")]
+    [InlineData(
+        "https://shibasommelier.tumblr.com/post/676286044432367616/2016-azienda-agricola-cos-cerasuolo-di-vittoria")]
+    public void UrlMatchTest(string url)
+    {
+        TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
+    }
 
-        private readonly IOEmbedConsumer _oEmbedConsumer;
+    [Fact]
+    public async Task RequestTest()
+    {
+        var result =
+            await _oEmbedConsumer.RequestAsync<Rich>("https://02vin.tumblr.com/post/679391156826701824/01-07-2022");
 
-        public TumblrTests(ITestOutputHelper output)
-        {
-            _output = output;
-            _oEmbedProvider = new TumblrProvider();
-            _oEmbedConsumer = TestHelpers.BuildConsumer(new[] { _oEmbedProvider });
-        }
+        Assert.NotNull(result);
+        Assert.Equal("rich", result!.Type);
+        Assert.Equal("1.0", result.Version);
+        Assert.Null(result.Title);
+        Assert.NotNull(result.AuthorName);
+        Assert.NotNull(result.AuthorUrl);
+        Assert.NotNull(result.ProviderName);
+        Assert.NotNull(result.ProviderUrl);
 
-        [Theory]
-        [InlineData("https://02vin.tumblr.com/post/679391156826701824/01-07-2022")]
-        [InlineData("https://shibasommelier.tumblr.com/post/676286044432367616/2016-azienda-agricola-cos-cerasuolo-di-vittoria")]
-        public void UrlMatchTest(string url)
-        {
-            TestHelpers.UrlShouldMatchTest(_oEmbedProvider, url);
-        }
+        Assert.NotNull(result.CacheAge);
+        Assert.NotNull(result.Html);
 
-        [Fact]
-        public async Task RequestTest()
-        {
-            var result = await _oEmbedConsumer.RequestAsync<Rich>("https://02vin.tumblr.com/post/679391156826701824/01-07-2022");
+        Assert.Null(result.ThumbnailUrl);
+        Assert.Null(result.ThumbnailWidth);
+        Assert.Null(result.ThumbnailHeight);
 
-            Assert.NotNull(result);
-            Assert.Equal("rich", result!.Type);
-            Assert.Equal("1.0", result.Version);
-            Assert.Null(result.Title);
-            Assert.NotNull(result.AuthorName);
-            Assert.NotNull(result.AuthorUrl);
-            Assert.NotNull(result.ProviderName);
-            Assert.NotNull(result.ProviderUrl);
+        Assert.Equal(540, result.Width);
+        Assert.Null(result.Height);
 
-            Assert.NotNull(result.CacheAge);
-            Assert.NotNull(result.Html);
-
-            Assert.Null(result.ThumbnailUrl);
-            Assert.Null(result.ThumbnailWidth);
-            Assert.Null(result.ThumbnailHeight);
-
-            Assert.Equal(540, result.Width);
-            Assert.Null(result.Height);
-
-            _output.WriteLine(result?.AuthorName);
-            _output.WriteLine(result?.AuthorUrl);
-        }
+        _output.WriteLine(result?.AuthorName);
+        _output.WriteLine(result?.AuthorUrl);
     }
 }

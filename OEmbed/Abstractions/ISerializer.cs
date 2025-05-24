@@ -2,10 +2,9 @@
 
 using HeyRed.OEmbed.Models;
 
-namespace HeyRed.OEmbed.Abstractions
+namespace HeyRed.OEmbed.Abstractions;
+
+public interface ISerializer
 {
-    public interface ISerializer
-    {
-        T? Deserialize<T>(Stream content) where T : Base;
-    }
+    T? Deserialize<T>(Stream content) where T : Base;
 }

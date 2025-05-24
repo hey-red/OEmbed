@@ -9,124 +9,149 @@ using HeyRed.OEmbed.Models;
 
 using U8Xml;
 
-namespace HeyRed.OEmbed.Defaults
-{
-    public class DefaultXmlSerializer : IXmlSerializer
-    {
-        public T? Deserialize<T>(Stream content) where T : Base
-        {
-            using var doc = XmlParser.Parse(content);
-            var root = doc.Root;
+namespace HeyRed.OEmbed.Defaults;
 
-            if (root.Name != "oembed")
+public class DefaultXmlSerializer : IXmlSerializer
+{
+    public T? Deserialize<T>(Stream content) where T : Base
+    {
+        using XmlObject doc = XmlParser.Parse(content);
+        XmlNode root = doc.Root;
+
+        if (root.Name != "oembed")
+        {
+            throw new InvalidDataException("The root element should be called as \"oembed\". Value: " + doc.Root.Name);
+        }
+
+        Type type = typeof(T);
+        object? obj = Activator.CreateInstance(type);
+
+        var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+        foreach (PropertyInfo property in properties)
+        {
+            if (!property.CanWrite)
             {
-                throw new InvalidDataException("The root element should be called as \"oembed\". Value: " + doc.Root.Name);
+                continue;
             }
 
-            var type = typeof(T);
-            var obj = Activator.CreateInstance(type);
-
-            PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            foreach (var property in properties)
+            if (root.TryFindChild(NameConverter.ConvertName(property.Name), out XmlNode node))
             {
-                if (!property.CanWrite) continue;
-
-                if (root.TryFindChild(NameConverter.ConvertName(property.Name), out XmlNode node))
+                if ((IsNullableType(property.PropertyType) &&
+                     Nullable.GetUnderlyingType(property.PropertyType) == typeof(int)) ||
+                    property.PropertyType == typeof(int))
                 {
-                    if ((IsNullableType(property.PropertyType) && Nullable.GetUnderlyingType(property.PropertyType) == typeof(int)) ||
-                        property.PropertyType == typeof(int))
-                    {
-                        property.SetValue(obj, node.InnerText.ToInt32());
-                    }
-                    else
-                    {
-                        property.SetValue(obj, node.InnerText.ToString());
-                    }
+                    property.SetValue(obj, node.InnerText.ToInt32());
+                }
+                else
+                {
+                    property.SetValue(obj, node.InnerText.ToString());
                 }
             }
-
-            return (T?)obj;
         }
 
-        private static bool IsNullableType(Type type)
-        {
-            return type.IsGenericType && type.GetGenericTypeDefinition().Equals(typeof(Nullable<>));
-        }
+        return (T?)obj;
     }
 
-    /// <summary>
-    /// Taken from https://github.com/YohDeadfall/Yoh.Text.Json.NamingPolicies/blob/master/src/JsonSimpleNamingPolicy.cs
-    /// </summary>
-    internal static class NameConverter
+    private static bool IsNullableType(Type type)
     {
-        private const char BOUNDARY = '_';
+        return type.IsGenericType &&
+               type
+                   .GetGenericTypeDefinition()
+                   .Equals(typeof(Nullable<>));
+    }
+}
 
-        private enum CharCategory
+/// <summary>
+///     Taken from https://github.com/YohDeadfall/Yoh.Text.Json.NamingPolicies/blob/master/src/JsonSimpleNamingPolicy.cs
+/// </summary>
+internal static class NameConverter
+{
+    private const char BOUNDARY = '_';
+
+    public static string ConvertName(string name)
+    {
+        int bufferLength = name.Length * 2;
+        char[]? buffer = bufferLength > 512
+            ? ArrayPool<char>.Shared.Rent(bufferLength)
+            : null;
+
+        var resultLength = 0;
+        var result = buffer is null
+            ? stackalloc char[512]
+            : buffer;
+
+        void WriteWord(ref Span<char> result, ReadOnlySpan<char> word)
         {
-            Boundary,
-            Lowercase,
-            Uppercase,
-        }
-
-        public static string ConvertName(string name)
-        {
-            var bufferLength = name.Length * 2;
-            var buffer = bufferLength > 512
-                ? ArrayPool<char>.Shared.Rent(bufferLength)
-                : null;
-
-            var resultLength = 0;
-            Span<char> result = buffer is null
-                ? stackalloc char[512]
-                : buffer;
-
-            void WriteWord(ref Span<char> result, ReadOnlySpan<char> word)
+            if (word.IsEmpty)
             {
-                if (word.IsEmpty)
-                    return;
-
-                var required = result.IsEmpty
-                    ? word.Length
-                    : word.Length + 1;
-
-                if (required >= result.Length)
-                {
-                    var bufferLength = result.Length * 2;
-                    var bufferNew = ArrayPool<char>.Shared.Rent(bufferLength);
-
-                    result.CopyTo(bufferNew);
-
-                    if (buffer is not null)
-                        ArrayPool<char>.Shared.Return(buffer);
-
-                    buffer = bufferNew;
-                }
-
-                if (resultLength != 0)
-                {
-                    result[resultLength] = BOUNDARY;
-                    resultLength += 1;
-                }
-
-                var destination = result[resultLength..];
-
-                word.ToLowerInvariant(destination);
-
-                resultLength += word.Length;
+                return;
             }
 
-            int first = 0;
-            var chars = name.AsSpan();
-            var previousCategory = CharCategory.Boundary;
-            for (int index = 0; index < chars.Length; index++)
+            int required = result.IsEmpty
+                ? word.Length
+                : word.Length + 1;
+
+            if (required >= result.Length)
             {
-                var current = chars[index];
-                var currentCategoryUnicode = char.GetUnicodeCategory(current);
-                if (currentCategoryUnicode == UnicodeCategory.SpaceSeparator ||
-                    currentCategoryUnicode >= UnicodeCategory.ConnectorPunctuation &&
-                    currentCategoryUnicode <= UnicodeCategory.OtherPunctuation)
+                int bufferLength = result.Length * 2;
+                char[] bufferNew = ArrayPool<char>.Shared.Rent(bufferLength);
+
+                result.CopyTo(bufferNew);
+
+                if (buffer is not null)
                 {
-                    WriteWord(ref result, chars[first..index]);
+                    ArrayPool<char>.Shared.Return(buffer);
+                }
+
+                buffer = bufferNew;
+            }
+
+            if (resultLength != 0)
+            {
+                result[resultLength] = BOUNDARY;
+                resultLength += 1;
+            }
+
+            var destination = result[resultLength..];
+
+            word.ToLowerInvariant(destination);
+
+            resultLength += word.Length;
+        }
+
+        var first = 0;
+        var chars = name.AsSpan();
+        var previousCategory = CharCategory.Boundary;
+        for (var index = 0; index < chars.Length; index++)
+        {
+            char current = chars[index];
+            UnicodeCategory currentCategoryUnicode = char.GetUnicodeCategory(current);
+            if (currentCategoryUnicode == UnicodeCategory.SpaceSeparator ||
+                (currentCategoryUnicode >= UnicodeCategory.ConnectorPunctuation &&
+                 currentCategoryUnicode <= UnicodeCategory.OtherPunctuation))
+            {
+                WriteWord(ref result, chars[first..index]);
+
+                previousCategory = CharCategory.Boundary;
+                first = index + 1;
+
+                continue;
+            }
+
+            if (index + 1 < chars.Length)
+            {
+                char next = chars[index + 1];
+                CharCategory currentCategory = currentCategoryUnicode switch
+                {
+                    UnicodeCategory.LowercaseLetter => CharCategory.Lowercase,
+                    UnicodeCategory.UppercaseLetter => CharCategory.Uppercase,
+                    _ => previousCategory
+                };
+
+                if ((currentCategory == CharCategory.Lowercase && char.IsUpper(next)) ||
+                    next == '_')
+                {
+                    WriteWord(ref result, chars[first..(index + 1)]);
 
                     previousCategory = CharCategory.Boundary;
                     first = index + 1;
@@ -134,51 +159,38 @@ namespace HeyRed.OEmbed.Defaults
                     continue;
                 }
 
-                if (index + 1 < chars.Length)
+                if (previousCategory == CharCategory.Uppercase &&
+                    currentCategoryUnicode == UnicodeCategory.UppercaseLetter &&
+                    char.IsLower(next))
                 {
-                    var next = chars[index + 1];
-                    var currentCategory = currentCategoryUnicode switch
-                    {
-                        UnicodeCategory.LowercaseLetter => CharCategory.Lowercase,
-                        UnicodeCategory.UppercaseLetter => CharCategory.Uppercase,
-                        _ => previousCategory
-                    };
+                    WriteWord(ref result, chars[first..index]);
 
-                    if (currentCategory == CharCategory.Lowercase && char.IsUpper(next) ||
-                        next == '_')
-                    {
-                        WriteWord(ref result, chars[first..(index + 1)]);
+                    previousCategory = CharCategory.Boundary;
+                    first = index;
 
-                        previousCategory = CharCategory.Boundary;
-                        first = index + 1;
-
-                        continue;
-                    }
-
-                    if (previousCategory == CharCategory.Uppercase &&
-                        currentCategoryUnicode == UnicodeCategory.UppercaseLetter &&
-                        char.IsLower(next))
-                    {
-                        WriteWord(ref result, chars[first..index]);
-
-                        previousCategory = CharCategory.Boundary;
-                        first = index;
-
-                        continue;
-                    }
-
-                    previousCategory = currentCategory;
+                    continue;
                 }
+
+                previousCategory = currentCategory;
             }
-
-            WriteWord(ref result, chars[first..]);
-
-            name = new string(result[..resultLength]);
-
-            if (buffer is not null)
-                ArrayPool<char>.Shared.Return(buffer);
-
-            return name;
         }
+
+        WriteWord(ref result, chars[first..]);
+
+        name = new string(result[..resultLength]);
+
+        if (buffer is not null)
+        {
+            ArrayPool<char>.Shared.Return(buffer);
+        }
+
+        return name;
+    }
+
+    private enum CharCategory
+    {
+        Boundary,
+        Lowercase,
+        Uppercase
     }
 }

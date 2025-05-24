@@ -3,18 +3,16 @@ using System.Collections.Generic;
 
 using HeyRed.OEmbed.Providers.Common;
 
-namespace HeyRed.OEmbed.Abstractions
+namespace HeyRed.OEmbed.Abstractions;
+
+public interface IOEmbedProvider
 {
-    public interface IOEmbedProvider
-    {
-        bool CanProcess(Uri uri);
+    ResponseFormat Format { get; }
 
-        ResponseFormat Format { get; }
+    IEnumerable<KeyValuePair<string, string?>> Parameters { get; }
 
-        ProviderScheme? MatchScheme(Uri uri);
+    Func<Uri, Uri>? PreProcessUrl { get; set; }
+    bool CanProcess(Uri uri);
 
-        IEnumerable<KeyValuePair<string, string?>> Parameters { get; }
-
-        Func<Uri, Uri>? PreProcessUrl { get; set; }
-    }
+    ProviderScheme? MatchScheme(Uri uri);
 }

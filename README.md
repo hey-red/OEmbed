@@ -3,12 +3,16 @@
 A simple [oEmbed](https://oembed.com) consumer library for .NET
 
 ## Install
+
 via [NuGet](https://www.nuget.org/packages/OEmbed):
+
 ```
 PM> Install-Package OEmbed
 ```
 
-[DI extensions](https://www.nuget.org/packages/OEmbed.Extensions.Microsoft.DependencyInjection/) for Microsoft.Extensions.DependencyInjection:
+[DI extensions](https://www.nuget.org/packages/OEmbed.Extensions.Microsoft.DependencyInjection/) for
+Microsoft.Extensions.DependencyInjection:
+
 ```
 PM> Install-Package OEmbed.Extensions.Microsoft.DependencyInjection
 ```
@@ -97,6 +101,7 @@ Additional providers:
 * Call one of RequestAsync() overloads.
 
 For example:
+
 ```C#
 using HeyRed.OEmbed.Abstractions;
 using HeyRed.OEmbed.Models;
@@ -104,12 +109,14 @@ using HeyRed.OEmbed.Models;
 // Returns null if provider not found or HttpRequestException was thrown.
 Video? result = await _oEmbedConsumer.RequestAsync<Video>("https://vimeo.com/22439234");
 ```
+
 The result object is are similar to described [in the spec](https://oembed.com/#:~:text=2.3.4,parameters)
 
 Models:
 [Base](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Models/Base.cs), [Link](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Models/Link.cs), [Photo](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Models/Photo.cs), [Rich](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Models/Rich.cs), [Video](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Models/Video.cs)
 
 Basic request:
+
 ```C#
 // Deserialize response based on provider preferences
 var item = await _oEmbedConsumer.RequestAsync(url);
@@ -139,16 +146,21 @@ services.AddOEmbed().Configure<CacheOptions>(options =>
 });
 ```
 
-By default cache is enabled and it's default implementation is just a wrapper around [MemoryCache](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.caching.memorycache)
+By default cache is enabled and it's default implementation is just a wrapper
+around [MemoryCache](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.caching.memorycache)
 
-You can write your own implementation of [ICache](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Abstractions/ICache.cs) and replace default cache during app configuration:
+You can write your own implementation
+of [ICache](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Abstractions/ICache.cs) and replace default cache
+during app configuration:
+
 ```C#
 services.AddOEmbed().SetCache<DistributedRedisCache>();
 ```
 
 ## Additional providers
 
-An easy way to write your own provider is inheritance of [ProviderBase](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Providers/Common/ProviderBase.cs) record:
+An easy way to write your own provider is inheritance
+of [ProviderBase](https://github.com/hey-red/OEmbed/blob/master/OEmbed/Providers/Common/ProviderBase.cs) record:
 
 ```C#
 public record ExampleProvider : ProviderBase
@@ -181,4 +193,5 @@ public record ExampleProvider : ProviderBase
 ```
 
 ## License
+
 [MIT](LICENSE)

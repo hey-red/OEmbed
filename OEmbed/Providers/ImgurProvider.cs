@@ -1,21 +1,21 @@
 ﻿using HeyRed.OEmbed.Providers.Common;
 
-namespace HeyRed.OEmbed.Providers
-{
-    public record ImgurProvider : ProviderBase
-    {
-        public ImgurProvider()
-        {
-            AddAllowedHosts(new[]
-            {
-                "imgur.com",
-                "i.imgur.com",
-                // Partners
-                "i.stack.imgur.com"
-            });
+namespace HeyRed.OEmbed.Providers;
 
-            AddScheme(
-                matcher: new RegexMatcher(@"
+public record ImgurProvider : ProviderBase
+{
+    public ImgurProvider()
+    {
+        AddAllowedHosts(new[]
+        {
+            "imgur.com",
+            "i.imgur.com",
+            // Partners
+            "i.stack.imgur.com"
+        });
+
+        AddScheme(
+            new RegexMatcher(@"
                     /(?:(?:
                     gallery/(\w+)|
                     t/(?:\w+)/(\w+)|
@@ -23,8 +23,7 @@ namespace HeyRed.OEmbed.Providers
                     (\w+)
                     )?
                     (?:\.[a-zA-Z]{3,4})?)"),
-                apiEndpoint: "https://api.imgur.com/oembed.json",
-                resourceType: ResourceType.Rich);
-        }
+            "https://api.imgur.com/oembed.json",
+            ResourceType.Rich);
     }
 }

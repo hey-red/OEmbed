@@ -1,6 +1,5 @@
-﻿namespace HeyRed.OEmbed.Abstractions
+﻿namespace HeyRed.OEmbed.Abstractions;
+
+public interface IJsonSerializer : ISerializer
 {
-    public interface IJsonSerializer : ISerializer
-    {
-    }
 }

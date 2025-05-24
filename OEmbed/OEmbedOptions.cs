@@ -1,7 +1,6 @@
-﻿namespace HeyRed.OEmbed
+﻿namespace HeyRed.OEmbed;
+
+public class OEmbedOptions
 {
-    public class OEmbedOptions
-    {
-        public bool EnableCache { get; set; } = true;
-    }
+    public bool EnableCache { get; set; } = true;
 }
